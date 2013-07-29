@@ -1,0 +1,36 @@
+DEFINITIONS
+-----------
+
++++ Feature +++
+
+Description		Measurable property of the load curve
+Type			Vector
+Data type		Double
+Dimensions		N x 1, N = Number of feature values
+
++++ Feature Set +++
+
+Description		Set of features
+Type			Cell array
+Data type		Function handle
+Dimensions		1 x K, K = Number of features
+
++++ Feature Vector +++
+
+Description		Concatenation of features
+Type			Vector
+Data type		Double
+Dimensions		N*K x 1
+
++++ Feature Sequence +++
+
+Description		A sequence of different feature vectors (extracted from different samples)
+Type			Matrix
+Data type		Double
+Dimensions		N*K x M, M = Number of samples
+
++++ Training Set __sTrain__ +++
+
+.samples		D x M (D = Feature space dimension = N*K, M = Number of samples)
+.truth			C x M (C = Number of classes)
+.classes		C x 1 cell array with class labels

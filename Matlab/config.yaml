@@ -1,0 +1,93 @@
+# Which week should be used for the analysis?
+week: 26
+
+# Should data be collected? (compute features, assign classes, ...)
+# [ 0 .. 1 ]
+perform_data_collection: 1
+
+# Should classification be performed?
+# [ 0 .. 1 ]
+perform_classification: 1
+
+# Path where to store classification results
+path_classification: 'results/classification/'
+
+# Optimization criterion (figure of merit)
+# [ 0 .. 1 ]
+# Only one can be set at the same time.
+figure_of_merit:
+  accuracy: 1
+  f_measure: 0
+  
+# Classification methods
+classifiers:
+  - lda
+#  - knn
+#  - mahal
+#  - svm
+
+# Feature selection
+# [ sfs, psfs ] currently implemented
+feature_selection: 'sfs'
+  
+# Use cross validation?
+# [ 0 .. 1 ]
+cross_validation: 0
+
+# Feature set that is used?
+# [ e_energy.feature_set_all feature_set_all ]
+feature_set: 'e_energy.feature_set_all'
+    
+# Classes that are to be classified
+classes:
+  - '@class_appliances'
+  - '@class_bedrooms'
+  - '@class_devices'
+  - '@class_devices_complex'
+  - '@class_dink'
+  - '@class_ecooking'
+  - '@class_eheating'
+  - '@class_employment'
+  - '@class_families'
+  - '@class_floorarea'
+  - '@class_lightbulbs'
+  - '@class_nokids'
+  - '@class_old_house'
+  - '@class_persons'
+  - '@class_retired'
+  - '@class_singles'
+  - '@class_socialclass'
+
+
+
+## A PRIORI KNOWLEDGE
+
+# Include apriori knowledge
+# [ 0 .. 1 ]
+apriori: 1
+
+# Path where apriori knowledge will be stored during data selection
+path_apriori: 'results/apriori_knowledge/'
+
+# A priori class functions
+apriori_classes:
+  - '@apriori_age'
+  - '@apriori_bedrooms'
+  - '@apriori_floorarea'
+  - '@apriori_ownhouse'
+  - '@apriori_persons'
+  - '@apriori_singles'
+  - '@apriori_socialclass'
+  - '@apriori_typehouse'
+
+# Combinations (connect apriori_classes with classes)
+apriori_combinations:
+  - [ 1 ]
+  - [ ]
+  - [ ]
+  - [ ]
+  - [ ]
+  - [ ]
+  - [ ]
+  - [ ]
+
