@@ -1,0 +1,23 @@
+Classes:
+--------
+	1:	AB
+	2:	C
+	3:	DE
+
+Classifier:
+-------------
+	svm
+
+A Priori Knowledge: Rent:
+Selected Features:
+--------------
+	10	19	1	4
+
+Correct Classification: 68.06%
+
+A Priori Knowledge: Own:
+Selected Features:
+--------------
+	18	12	3	4	22	15	2	13	17	14	21	8	1
+
+Correct Classification: 54.19%

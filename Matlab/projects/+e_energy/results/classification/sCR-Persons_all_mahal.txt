@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	1-2
+	2:	3+
+
+Classifier:
+-------------
+	mahal
+
+Selected Features:
+--------------
+	8	7	19	17	21	1
+
+Correct Classification: 72.98%

@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Employed
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: Singles:
+Selected Features:
+--------------
+	18	3	1	4	15	5	12	13	9
+
+Correct Classification: 74.19%
+
+A Priori Knowledge: Other:
+Selected Features:
+--------------
+	18	7	2	15	11	3	8	16	19	12	22
+
+Correct Classification: 69.30%

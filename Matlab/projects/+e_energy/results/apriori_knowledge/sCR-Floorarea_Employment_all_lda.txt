@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Employed
+	2:	Other
+
+Classifier:
+-------------
+	lda
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	18	7	20	9	12	1	6	3	11	19	21	15	16	13
+
+Correct Classification: 66.42%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	12	19	13	11	2	7	10
+
+Correct Classification: 67.84%

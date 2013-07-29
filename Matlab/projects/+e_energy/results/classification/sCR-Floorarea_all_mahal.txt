@@ -1,0 +1,15 @@
+Classes:
+--------
+	1:	Small
+	2:	Middle
+	3:	Big
+
+Classifier:
+-------------
+	mahal
+
+Selected Features:
+--------------
+	22
+
+Correct Classification: 59.73%

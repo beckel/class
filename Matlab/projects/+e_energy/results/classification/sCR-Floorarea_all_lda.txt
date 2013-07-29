@@ -1,0 +1,15 @@
+Classes:
+--------
+	1:	Small
+	2:	Middle
+	3:	Big
+
+Classifier:
+-------------
+	lda
+
+Selected Features:
+--------------
+	13	8	17	16	2	19	12	6	11	22	15	21	10	14
+
+Correct Classification: 43.86%

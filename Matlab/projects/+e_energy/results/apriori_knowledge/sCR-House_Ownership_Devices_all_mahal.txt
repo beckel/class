@@ -1,0 +1,23 @@
+Classes:
+--------
+	1:	Low
+	2:	Mid
+	3:	High
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: Rent:
+Selected Features:
+--------------
+	1	21	12	10	13	15	2	9	16
+
+Correct Classification: 61.84%
+
+A Priori Knowledge: Own:
+Selected Features:
+--------------
+	6	12	21	7
+
+Correct Classification: 53.46%

@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	knn
+
+Selected Features:
+--------------
+	2	14	4	7	19	5	21	1
+
+Correct Classification: 80.23%

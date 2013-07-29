@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Employed
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	18	1	7	19	12	6	13	11	4	16	2	20	22	15
+
+Correct Classification: 69.01%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	12	19	7	22	1	2	3	5	15
+
+Correct Classification: 76.87%

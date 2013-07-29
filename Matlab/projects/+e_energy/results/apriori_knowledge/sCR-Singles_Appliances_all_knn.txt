@@ -1,0 +1,23 @@
+Classes:
+--------
+	1:	Low
+	2:	Mid
+	3:	High
+
+Classifier:
+-------------
+	knn
+
+A Priori Knowledge: Singles:
+Selected Features:
+--------------
+	13	17	14	12	20	21	1	6
+
+Correct Classification: 56.90%
+
+A Priori Knowledge: Other:
+Selected Features:
+--------------
+	6	13	18	17	16
+
+Correct Classification: 55.79%

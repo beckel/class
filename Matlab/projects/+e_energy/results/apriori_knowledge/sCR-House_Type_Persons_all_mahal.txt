@@ -1,0 +1,36 @@
+Classes:
+--------
+	1:	1-2
+	2:	3+
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: Semi-Detatched:
+Selected Features:
+--------------
+	14	2	18
+
+Correct Classification: 74.50%
+
+A Priori Knowledge: Detatched:
+Selected Features:
+--------------
+	12	19	8	7	4
+
+Correct Classification: 70.58%
+
+A Priori Knowledge: Terraced:
+Selected Features:
+--------------
+	8	19	16	21	3
+
+Correct Classification: 75.96%
+
+A Priori Knowledge: Bungalow:
+Selected Features:
+--------------
+	8	19	7	15	5	13	21	16
+
+Correct Classification: 72.91%

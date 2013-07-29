@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Employed
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: Rent:
+Selected Features:
+--------------
+	19	16	21	15	9
+
+Correct Classification: 58.89%
+
+A Priori Knowledge: Own:
+Selected Features:
+--------------
+	18	12	11	8	7	15	19	2
+
+Correct Classification: 69.04%

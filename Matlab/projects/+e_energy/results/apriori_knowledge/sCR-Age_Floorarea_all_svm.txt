@@ -1,0 +1,30 @@
+Classes:
+--------
+	1:	Small
+	2:	Middle
+	3:	Big
+
+Classifier:
+-------------
+	svm
+
+A Priori Knowledge: <35:
+Selected Features:
+--------------
+	10	21	15	6	13	22	12	18	4	5	11	17
+
+Correct Classification: 62.27%
+
+A Priori Knowledge: 35-65:
+Selected Features:
+--------------
+	3	15	7	12
+
+Correct Classification: 66.28%
+
+A Priori Knowledge: 65+:
+Selected Features:
+--------------
+	3	16	8	20	21
+
+Correct Classification: 69.46%

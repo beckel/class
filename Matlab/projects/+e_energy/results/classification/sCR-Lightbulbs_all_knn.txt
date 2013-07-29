@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Lightbulbs
+	2:	ESL
+
+Classifier:
+-------------
+	knn
+
+Selected Features:
+--------------
+	12	14	21	2	13	19
+
+Correct Classification: 51.97%

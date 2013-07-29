@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	svm
+
+Selected Features:
+--------------
+	8	19	7	6
+
+Correct Classification: 81.24%

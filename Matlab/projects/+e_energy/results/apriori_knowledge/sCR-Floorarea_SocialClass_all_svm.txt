@@ -1,0 +1,23 @@
+Classes:
+--------
+	1:	AB
+	2:	C
+	3:	DE
+
+Classifier:
+-------------
+	svm
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	18	12
+
+Correct Classification: 53.17%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	1	18	14	12	6	19	10
+
+Correct Classification: 51.38%

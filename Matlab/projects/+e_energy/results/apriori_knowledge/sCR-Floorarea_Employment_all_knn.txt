@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Employed
+	2:	Other
+
+Classifier:
+-------------
+	knn
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	16	18	8	19	7	2	21	1	14	17
+
+Correct Classification: 67.29%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	14	20	18	1	7	3
+
+Correct Classification: 77.83%

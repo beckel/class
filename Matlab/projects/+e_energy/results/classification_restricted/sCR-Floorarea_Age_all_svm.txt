@@ -1,0 +1,15 @@
+Classes:
+--------
+	1:	Small
+	2:	Middle
+	3:	Big
+
+Classifier:
+-------------
+	svm
+
+Selected Features:
+--------------
+	2	13	4	6	20	18	7	5	10	19
+
+Correct Classification: 65.61%

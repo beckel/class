@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	e-Heating
+	2:	Other
+
+Classifier:
+-------------
+	lda
+
+Selected Features:
+--------------
+	2	12	4	14	20	3	11	22	15	19	18	9	16	8
+
+Correct Classification: 53.78%

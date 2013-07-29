@@ -1,0 +1,15 @@
+Classes:
+--------
+	1:	AB
+	2:	C
+	3:	DE
+
+Classifier:
+-------------
+	knn
+
+Selected Features:
+--------------
+	2	15	18	17	7	13	22	4
+
+Correct Classification: 45.78%
