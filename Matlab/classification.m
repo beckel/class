@@ -59,15 +59,15 @@ end
 %% Store Result Structs
 if any(strcmp('restriction',fieldnames(sInfo)))
     path = [ Config.path_apriori, num2str(Config.week), '/', Config.feature_set, '/'];
-    name = ['sCR-', sInfo.classes, '_restrictedBy_', sInfo.restriction, '_', figureOfMerit.printShortTest(), '_', method];
+    name = ['sCR-', sInfo.classes, '_restrictedBy_', sInfo.restriction, '_', figureOfMerit.printShortText(), '_', method];
 else
     path = [ Config.path_classification, num2str(Config.week), '/', Config.feature_set, '/'];
-    name = ['sCR-', sInfo.classes, '_', figureOfMerit.printShortTest(), '_', method];
+    name = ['sCR-', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
 end
 
-filename = [path, name];
+filename = [path, name]; 
 if (not(exist([filename, '.mat'], 'file')))
-	save(filename, 'sCR', 'sFSR');
+	save([filename, '.mat'], 'sCR', 'sFSR');
 else
 	i = 1;
 	filename_dupl = filename;
@@ -76,7 +76,7 @@ else
 		i = i +1;
 		filename = [filename_dupl, '-', num2str(i)];
 	end
-	save(filename, 'sCR', 'sFSR');
+	save([filename, '.mat'], 'sCR', 'sFSR');
 end
 
 % Print Summary
@@ -85,7 +85,7 @@ fprintf(fid, 'Classes:\n');
 fprintf(fid, '--------\n');
 for c = 1:length(sCV.classes)
 	fprintf(fid, '\t%i:\t%s\n', c, sCV.classes{c});
-end
+end 
 fprintf(fid, '\nClassifier:\n');
 fprintf(fid, '-------------\n');
 fprintf(fid, '\t%s\n', method);
@@ -99,5 +99,5 @@ fprintf(fid, '\nCross validation: %s', num2str(Config.cross_validation));
 fprintf(fid, '\nFeature set: %s', num2str(Config.feature_set));
 fprintf(fid, '\nFeature selection: %s', num2str(Config.feature_selection));
 fprintf(fid, '\nFigure of merit: %s\n', figureOfMerit.printText());
-fprintf(fid, '\nResult: %.2f%%\n', figureOfMerit.evaluate(sCR)*100);
+fprintf(fid, '\nResult (%s): %.2f%%\n', figureOfMerit.printShortText(), figureOfMerit.evaluate(sCR)*100);
 end

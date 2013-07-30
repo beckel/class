@@ -69,10 +69,6 @@ function run_experiment
             else
                 apriori_class_func = Config.apriori_classes;
                 apriori_combinations = Config.apriori_combinations;
-                figureOfMerit = FigureOfMerit('accuracy', @accuracy);
-                if Config.figure_of_merit.f_measure == 1
-                    fprintf('Error: f_measure not yet supported for apriori classification');
-                end
                 for a = 1:length(apriori_class_func)
                     for c = cell2mat(apriori_combinations{a})
                         

@@ -13,19 +13,20 @@ perform_classification: 1
 path_classification: 'results/classification/'
 
 # Optimization criterion (figure of merit)
+# NOTE: f_measure is only possible for two-class classification tasks
 figure_of_merit:
-  - [ f_measure, '@f_measure', 0.0625 ]
-  - [ accuracy, '@accuracy' ]
-  - [ f_measure, '@f_measure', 0.125 ]
-  - [ f_measure, '@f_measure', 0.25 ]
-  - [ f_measure, '@f_measure', 0.5 ]
-  - [ f_measure, '@f_measure', 0.8 ]
-  - [ f_measure, '@f_measure', 1 ]
-  - [ f_measure, '@f_measure', 1.4 ]
-  - [ f_measure, '@f_measure', 2 ]
-  - [ f_measure, '@f_measure', 4 ]
-  - [ f_measure, '@f_measure', 8 ]
-  - [ f_measure, '@f_measure', 16 ]
+#    - [ accuracy, '@accuracy' ]
+    - [ f_measure, '@f_measure', 0.0625 ]
+#  - [ f_measure, '@f_measure', 0.125 ]
+#  - [ f_measure, '@f_measure', 0.25 ]
+#  - [ f_measure, '@f_measure', 0.5 ]
+#  - [ f_measure, '@f_measure', 0.8 ]
+#  - [ f_measure, '@f_measure', 1 ]
+#  - [ f_measure, '@f_measure', 1.4 ]
+#  - [ f_measure, '@f_measure', 2 ]
+#  - [ f_measure, '@f_measure', 4 ]
+#  - [ f_measure, '@f_measure', 8 ]
+#  - [ f_measure, '@f_measure', 16 ]
   
 # Classification methods
 classifiers:
@@ -40,7 +41,7 @@ feature_selection: 'sfs'
   
 # Use cross validation?
 # [ 0 .. 1 ]
-cross_validation: 0
+cross_validation: 1
 
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
@@ -48,23 +49,23 @@ feature_set: 'e_energy.feature_set_all'
     
 # Classes that are to be classified
 classes:
-  - '@class_appliances'
-  - '@class_bedrooms'
-  - '@class_devices'
-  - '@class_devices_complex'
-  - '@class_dink'
-  - '@class_ecooking'
-  - '@class_eheating'
+#  - '@class_appliances'
+#  - '@class_bedrooms'
+#  - '@class_devices'
+#  - '@class_devices_complex'
+#  - '@class_dink'
+#  - '@class_ecooking'
+#  - '@class_eheating'
   - '@class_employment'
-  - '@class_families'
-  - '@class_floorarea'
-  - '@class_lightbulbs'
-  - '@class_nokids'
-  - '@class_old_house'
-  - '@class_persons'
-  - '@class_retired'
+#  - '@class_families'
+#  - '@class_floorarea'
+#  - '@class_lightbulbs'
+#  - '@class_nokids'
+#  - '@class_old_house'
+#  - '@class_persons'
+#  - '@class_retired'
   - '@class_singles'
-  - '@class_socialclass'
+#  - '@class_socialclass'
 
 
 
@@ -72,7 +73,7 @@ classes:
 
 # Include apriori knowledge
 # [ 0 .. 1 ]
-apriori: 0
+apriori: 1
 
 # Path where apriori knowledge will be stored during data selection
 path_apriori: 'results/apriori_knowledge/'
@@ -90,7 +91,7 @@ apriori_classes:
 
 # Combinations (connect apriori_classes with classes)
 apriori_combinations:
-  - [ 1 ]
+  - [ 1, 2 ]
   - [ ]
   - [ ]
   - [ ]

@@ -54,10 +54,10 @@ end
 
 %% Store Result Structs
 
-name = ['sCR-', sInfo.apriori, '_knownAprioriWhenClassifying_', sInfo.classes, '_', figureOfMerit.printShortTest(), '_', method];
+name = ['sCR-', sInfo.apriori, '_knownAprioriWhenClassifying_', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
 filename = [path, name];
 if (not(exist([filename, '.mat'], 'file')))
-	save(filename, 'sCR', 'sFSR');
+	save([filename, '.mat'], 'sCR', 'sFSR');
 else
 	i = 1;
 	filename_dupl = filename;
@@ -66,7 +66,7 @@ else
 		i = i +1;
 		filename = [filename_dupl, '-', num2str(i)];
 	end
-	save(filename, 'sCR', 'sFSR');
+	save([filename, '.mat'], 'sCR', 'sFSR');
 end
 
 % Print Summary
@@ -93,6 +93,6 @@ for a = 1:A
     fprintf(fid, '\nFeature selection: %s', num2str(Config.feature_selection));
     fprintf(fid, '\nFigure of merit: %s\n', figureOfMerit.printText());
 
-	fprintf(fid, '\nResult: %.2f%%\n', figureOfMerit.evaluate(sCR{a})*100);
+	fprintf(fid, '\nResult (%s): %.2f%%\n', figureOfMerit.printShortText(), figureOfMerit.evaluate(sCR{a})*100);
 end
 fclose(fid);
