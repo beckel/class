@@ -2,10 +2,11 @@ function run_experiment(config_file)
 
     if ~exist('config_file', 'var')
         config_file = 'config.yaml';
+	fprintf('Using default config file: config.yaml\n');
     end
 
     fprintf('Running experiment with config file %s\n', config_file);
-    return;
+   
     Config = ReadYaml(config_file);
     
     class_func = Config.classes;
