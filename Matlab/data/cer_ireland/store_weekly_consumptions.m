@@ -15,7 +15,6 @@ ids = cell2mat(curs.data);
 close(connection);
 
 %% (2) Obtain consumption data for these user ids
-connection = cer_db_get_connection();
 dest_folder = 'data/cer_ireland/weekly_traces/';
 warning off;
 mkdir(dest_folder);
@@ -25,6 +24,8 @@ avg_time = 0;
 for i = 1:length(ids)
 	tic;
 	id = ids(i);
+
+    connection = cer_db_get_connection();
 
     % get weeks
     select = 'YEARWEEK(TimeCode,3) as Week, MAX(Status) AS Stat';
@@ -95,7 +96,16 @@ for i = 1:length(ids)
  	avg_time = (avg_time * (i-1) + t * 1) / i;
  	eta = avg_time * (length(ids) - i);
  	fprintf('Progress: %i%% (%i of %i). ETA: %s\n', round(i*100/length(ids)), i, length(ids), seconds2str(eta));
+    
+    clear consumption_arrays;
+    clear consumptions;
+    clear timeline;
+    clear timeline_arrays;
+    clear timelines;
+    clear weekly_consumption;
+    clear weeks;
+
+    close(connection);
 end
  
-close(connection);
 
