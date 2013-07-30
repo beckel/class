@@ -1,6 +1,7 @@
 %% Add to Matlab search path
 
 addpath('algo/');
+addpath('algo/featureselection/');
 
 addpath('classifier/');
 
