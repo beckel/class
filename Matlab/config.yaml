@@ -3,7 +3,7 @@ week: 26
 
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
-perform_data_collection: 0
+perform_data_collection: 1
 
 # Should classification be performed?
 # [ 0 .. 1 ]
@@ -16,12 +16,12 @@ path_classification: 'results/classification/'
 # NOTE: f_measure is only possible for two-class classification tasks
 figure_of_merit:
 #    - [ accuracy, '@accuracy' ]
-    - [ f_measure, '@f_measure', 0.0625 ]
+#    - [ f_measure, '@f_measure', 0.0625 ]
 #  - [ f_measure, '@f_measure', 0.125 ]
 #  - [ f_measure, '@f_measure', 0.25 ]
 #  - [ f_measure, '@f_measure', 0.5 ]
 #  - [ f_measure, '@f_measure', 0.8 ]
-#  - [ f_measure, '@f_measure', 1 ]
+  - [ f_measure, '@f_measure', 1 ]
 #  - [ f_measure, '@f_measure', 1.4 ]
 #  - [ f_measure, '@f_measure', 2 ]
 #  - [ f_measure, '@f_measure', 4 ]
@@ -41,7 +41,7 @@ feature_selection: 'sfs'
   
 # Use cross validation?
 # [ 0 .. 1 ]
-cross_validation: 1
+cross_validation: 0
 
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
@@ -64,7 +64,7 @@ classes:
 #  - '@class_old_house'
 #  - '@class_persons'
 #  - '@class_retired'
-  - '@class_singles'
+#  - '@class_singles'
 #  - '@class_socialclass'
 
 
@@ -73,7 +73,7 @@ classes:
 
 # Include apriori knowledge
 # [ 0 .. 1 ]
-apriori: 1
+apriori: 0
 
 # Path where apriori knowledge will be stored during data selection
 path_apriori: 'results/apriori_knowledge/'

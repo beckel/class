@@ -1,6 +1,11 @@
-function run_experiment
+function run_experiment(config_file)
 
-    config_file = 'config.yaml';
+    if ~exist('config_file', 'var')
+        config_file = 'config.yaml';
+    end
+
+    fprintf('Running experiment with config file %s\n', config_file);
+    return;
     Config = ReadYaml(config_file);
     
     class_func = Config.classes;
@@ -59,7 +64,7 @@ function run_experiment
                     for m = 1:length(classifiers)
                         class_function = str2func(class_func{f});
                         class_name = class_function('name');
-                        data_file = [Config.path_classification, num2str(Config.week), '/', Config.feature_set, '/sD-', class_name, '.mat'];
+                        data_file = [Config.path_classification, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/sD-', class_name, '.mat'];
                         fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
                         load(data_file);
                         classification(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit);
@@ -82,13 +87,13 @@ function run_experiment
                             % (i.e., all households that have apriori
                             % information given). This is needed for later
                             % analysis.
-                            data_file = [Config.path_apriori, num2str(Config.week), '/', Config.feature_set, '/sD-', class_name, '_restrictedBy_', apriori_name, '.mat'];
+                            data_file = [Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/sD-', class_name, '_restrictedBy_', apriori_name, '.mat'];
                             fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
                             load(data_file);
                             classification(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit);
 
                             % perform classification based on apriori classes
-                            data_file = [Config.path_apriori, num2str(Config.week), '/', Config.feature_set, '/sD-', apriori_name, '_knownAprioriWhenClassifying_', class_name, '.mat'];
+                            data_file = [Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/sD-', apriori_name, '_knownAprioriWhenClassifying_', class_name, '.mat'];
                             fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
                             load(data_file);
                             classification_apriori(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit);

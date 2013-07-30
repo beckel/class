@@ -58,10 +58,10 @@ end
 
 %% Store Result Structs
 if any(strcmp('restriction',fieldnames(sInfo)))
-    path = [ Config.path_apriori, num2str(Config.week), '/', Config.feature_set, '/'];
+    path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/', Config.feature_selection, '/'];
     name = ['sCR-', sInfo.classes, '_restrictedBy_', sInfo.restriction, '_', figureOfMerit.printShortText(), '_', method];
 else
-    path = [ Config.path_classification, num2str(Config.week), '/', Config.feature_set, '/'];
+    path = [ Config.path_classification, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/', Config.feature_selection, '/'];
     name = ['sCR-', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
 end
 
