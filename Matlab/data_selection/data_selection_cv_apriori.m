@@ -1,6 +1,6 @@
 function data_selection_cv_apriori(Config, apriori_class_func, class_func, feat_func)
 
-path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/', Config.feature_selection, '/'];
+path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
 
 %% Settings
  
