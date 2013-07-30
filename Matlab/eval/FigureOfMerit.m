@@ -32,5 +32,13 @@ classdef FigureOfMerit
                 text = [obj.method, ' (param = ', num2str(obj.param), ')'];
             end
         end
+
+        function text = printShortText(obj)
+            if isnan(obj.param)
+                text = obj.method;
+            else
+                text = [obj.method, '_', num2str(obj.param)];
+            end
+        end
     end
 end

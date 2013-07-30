@@ -3,7 +3,7 @@ week: 26
 
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
-perform_data_collection: 1
+perform_data_collection: 0
 
 # Should classification be performed?
 # [ 0 .. 1 ]
@@ -13,11 +13,19 @@ perform_classification: 1
 path_classification: 'results/classification/'
 
 # Optimization criterion (figure of merit)
-# [ 0 .. 1 ]
-# Only one can be set at the same time.
 figure_of_merit:
-  accuracy: 1
-  f_measure: 0
+  - [ f_measure, '@f_measure', 0.0625 ]
+  - [ accuracy, '@accuracy' ]
+  - [ f_measure, '@f_measure', 0.125 ]
+  - [ f_measure, '@f_measure', 0.25 ]
+  - [ f_measure, '@f_measure', 0.5 ]
+  - [ f_measure, '@f_measure', 0.8 ]
+  - [ f_measure, '@f_measure', 1 ]
+  - [ f_measure, '@f_measure', 1.4 ]
+  - [ f_measure, '@f_measure', 2 ]
+  - [ f_measure, '@f_measure', 4 ]
+  - [ f_measure, '@f_measure', 8 ]
+  - [ f_measure, '@f_measure', 16 ]
   
 # Classification methods
 classifiers:
@@ -64,7 +72,7 @@ classes:
 
 # Include apriori knowledge
 # [ 0 .. 1 ]
-apriori: 1
+apriori: 0
 
 # Path where apriori knowledge will be stored during data selection
 path_apriori: 'results/apriori_knowledge/'

@@ -59,10 +59,10 @@ end
 %% Store Result Structs
 if any(strcmp('restriction',fieldnames(sInfo)))
     path = [ Config.path_apriori, num2str(Config.week), '/', Config.feature_set, '/'];
-    name = ['sCR-', sInfo.classes, '_restrictedBy_', sInfo.restriction, '_', method];
+    name = ['sCR-', sInfo.classes, '_restrictedBy_', sInfo.restriction, '_', figureOfMerit.printShortTest(), '_', method];
 else
-    name = ['sCR-', sInfo.classes, '_', method];
     path = [ Config.path_classification, num2str(Config.week), '/', Config.feature_set, '/'];
+    name = ['sCR-', sInfo.classes, '_', figureOfMerit.printShortTest(), '_', method];
 end
 
 filename = [path, name];

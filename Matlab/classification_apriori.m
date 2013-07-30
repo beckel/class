@@ -54,7 +54,7 @@ end
 
 %% Store Result Structs
 
-name = ['sCR-', sInfo.apriori, '_knownAprioriWhenClassifying_', sInfo.classes, '_', method];
+name = ['sCR-', sInfo.apriori, '_knownAprioriWhenClassifying_', sInfo.classes, '_', figureOfMerit.printShortTest(), '_', method];
 filename = [path, name];
 if (not(exist([filename, '.mat'], 'file')))
 	save(filename, 'sCR', 'sFSR');
