@@ -66,6 +66,9 @@ else
 end
 
 filename = [path, name]; 
+warning off
+mkdir(path);
+warning on
 if (not(exist([filename, '.mat'], 'file')))
 	save([filename, '.mat'], 'sCR', 'sFSR');
 else

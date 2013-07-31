@@ -41,6 +41,7 @@ elseif Config.cross_validation == 0
         if strcmp(featSelect, 'sfs') == 1
             [sCR{a}, ~, sFSR{a}] = sfs_nocv(sCVa, figureOfMerit);
         elseif strcmp(featSelect, 'psfs') == 1
+            sCVa.P = 3;
             [sCR{a}, ~, sFSR{a}] = psfs_nocv(sCVa, figureOfMerit);
         else
             fprintf('Error: invalid feature selection method');
@@ -56,6 +57,9 @@ end
 
 name = ['sCR-', sInfo.apriori, '_knownAprioriWhenClassifying_', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
 filename = [path, name];
+warning off
+mkdir(path);
+warning on
 if (not(exist([filename, '.mat'], 'file')))
 	save([filename, '.mat'], 'sCR', 'sFSR');
 else
