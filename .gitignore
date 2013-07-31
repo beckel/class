@@ -7,3 +7,5 @@ Matlab/lsf*
 .DS_Store
 .*
 Matlab/run_on_brutus
+Matlab/data/cer_ireland/cer_db_get_connection.m
+
