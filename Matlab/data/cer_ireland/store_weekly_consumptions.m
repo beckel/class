@@ -104,6 +104,8 @@ for i = 1:length(ids)
     clear timelines;
     clear weekly_consumption;
     clear weeks;
+    clear curs;
+    clear Consumer;
 
     close(connection);
 end
