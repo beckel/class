@@ -9,7 +9,7 @@ function [t, distance] = classify_mahal(sC)
         t = 1;
         return;
     end
-    
+    fprintf('X ');
     [t, ~, ~, ~, ~, distance] = classify_distance_decision_boundary(sC.test_set', sC.training_set', sC.training_truth', 'mahalanobis');
 	t = t';
 end

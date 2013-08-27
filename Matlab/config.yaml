@@ -57,9 +57,9 @@ figure_of_merit:
   
 # Classification methods
 classifiers:
-  - lda
+#  - lda
 #  - knn
-#  - mahal
+  - mahal
 #  - svm
 
 # Feature selection
@@ -76,22 +76,23 @@ feature_set: 'issm.feature_set_all'
     
 # Classes that are to be classified
 classes:
-  - '@issm.classes.class_absence'
-  - '@issm.classes.class_all_employed'
+#  - '@issm.classes.class_absence'
+#  - '@issm.classes.class_all_employed'
   - '@issm.classes.class_appliances'
-  - '@issm.classes.class_children'
-  - '@issm.classes.class_coffee_machine'
-  - '@issm.classes.class_employment'
-  - '@issm.classes.class_floorarea'
-  - '@issm.classes.class_lightbulb_ratio'
-  - '@issm.classes.class_hours_tv'
-  - '@issm.classes.class_many_lightbulbs'
-  - '@issm.classes.class_oefeli'
-  - '@issm.classes.class_old_house'
-  - '@issm.classes.class_singles'
-  - '@issm.classes.class_type_house'
-  - '@issm.classes.class_washing_machine'
-  - '@issm.classes.class_water_heating'
+#  - '@issm.classes.class_children'
+#  - '@issm.classes.class_coffee_machine'
+#  - '@issm.classes.class_employment'
+#  - '@issm.classes.class_floorarea'
+#  - '@issm.classes.class_lightbulb_ratio'
+#  - '@issm.classes.class_hours_tv'
+#  - '@issm.classes.class_many_lightbulbs'
+#  - '@issm.classes.class_oefeli'
+#  - '@issm.classes.class_old_house'
+#  - '@issm.classes.class_singles'
+#  - '@issm.classes.class_type_house'
+#  - '@issm.classes.class_washing_machine'
+#  - '@issm.classes.class_water_heating'
+
 #  - '@class_appliances'
 #  - '@class_bedrooms'
 #  - '@class_devices'

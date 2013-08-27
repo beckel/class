@@ -15,7 +15,7 @@ function feature = first_time_above_2000(consumption)
 			start = (i-1) * 96;
 			idx = 0;
 			for (j = 1:96)
-			    if (consumption(start+j) > 2)
+			    if (consumption(start+j) > 0.5)
 					idx = j;
 					break;
 				end
