@@ -118,6 +118,8 @@ function [outclass, err, posterior, logp, coeffs, distance] = classify_distance_
 %         Oxford University Press, Oxford, 1988.
 %     [2] Seber, G.A.F., Multivariate Observations, Wiley, New York, 1984.
 
+% Minor modification within project CLASS: return distance to decision boundary.
+
 if nargin < 3
     error(message('stats:classify:TooFewInputs'));
 end

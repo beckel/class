@@ -1,3 +1,8 @@
+% This file is part of the project CLASS (https://github.com/beckel/class).
+% Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+% Copyright: ETH Zurich & TU Darmstadt, 2012
+% Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
+
 function data_selection_nocv_restricted(Config, class_func, restrict_func, feat_func)
 
 path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];

@@ -1,5 +1,32 @@
+# This file is part of the project CLASS (https://github.com/beckel/class).
+# Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+# Copyright: ETH Zurich & TU Darmstadt, 2012
+# Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
+
 # Which week should be used for the analysis?
 week: 26
+# refactoring needed: weeks instead of week
+weeks: 
+  - 7
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 16
+  - 19
+  - 20
+  - 21
+  - 24
+  - 25
+  - 26
+  - 27
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
 
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
@@ -15,13 +42,13 @@ path_classification: 'results/classification/'
 # Optimization criterion (figure of merit)
 # NOTE: f_measure is only possible for two-class classification tasks
 figure_of_merit:
-#    - [ accuracy, '@accuracy' ]
-#    - [ f_measure, '@f_measure', 0.0625 ]
+  - [ accuracy, '@accuracy' ]
+#  - [ f_measure, '@f_measure', 0.0625 ]
 #  - [ f_measure, '@f_measure', 0.125 ]
 #  - [ f_measure, '@f_measure', 0.25 ]
 #  - [ f_measure, '@f_measure', 0.5 ]
 #  - [ f_measure, '@f_measure', 0.8 ]
-  - [ f_measure, '@f_measure', 1 ]
+#  - [ f_measure, '@f_measure', 1 ]
 #  - [ f_measure, '@f_measure', 1.4 ]
 #  - [ f_measure, '@f_measure', 2 ]
 #  - [ f_measure, '@f_measure', 4 ]
@@ -37,18 +64,34 @@ classifiers:
 
 # Feature selection
 # [ sfs, psfs ] currently implemented
-feature_selection: 'sfs'
+feature_selection: 'psfs'
   
 # Use cross validation?
 # [ 0 .. 1 ]
-cross_validation: 0
+cross_validation: 1
 
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
-feature_set: 'e_energy.feature_set_all'
+feature_set: 'issm.feature_set_all'
     
 # Classes that are to be classified
 classes:
+  - '@issm.classes.class_absence'
+  - '@issm.classes.class_all_employed'
+  - '@issm.classes.class_appliances'
+  - '@issm.classes.class_children'
+  - '@issm.classes.class_coffee_machine'
+  - '@issm.classes.class_employment'
+  - '@issm.classes.class_floorarea'
+  - '@issm.classes.class_lightbulb_ratio'
+  - '@issm.classes.class_hours_tv'
+  - '@issm.classes.class_many_lightbulbs'
+  - '@issm.classes.class_oefeli'
+  - '@issm.classes.class_old_house'
+  - '@issm.classes.class_singles'
+  - '@issm.classes.class_type_house'
+  - '@issm.classes.class_washing_machine'
+  - '@issm.classes.class_water_heating'
 #  - '@class_appliances'
 #  - '@class_bedrooms'
 #  - '@class_devices'
@@ -56,7 +99,7 @@ classes:
 #  - '@class_dink'
 #  - '@class_ecooking'
 #  - '@class_eheating'
-  - '@class_employment'
+#  - '@class_employment'
 #  - '@class_families'
 #  - '@class_floorarea'
 #  - '@class_lightbulbs'

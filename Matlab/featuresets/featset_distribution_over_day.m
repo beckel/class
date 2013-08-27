@@ -1,7 +1,7 @@
-% Copyright: ETH Zurich, 12/2012
-% Institute for Pervasive Computing
-% Distributed Systems Group
-% Christian Beckel (beckel@inf.ethz.ch)
+% This file is part of the project CLASS (https://github.com/beckel/class).
+% Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+% Copyright: ETH Zurich & TU Darmstadt, 2012
+% Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
 function feat_set = featset_distribution_over_day(option)
 	if (nargin == 0)

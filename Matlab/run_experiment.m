@@ -1,3 +1,8 @@
+% This file is part of the project CLASS (https://github.com/beckel/class).
+% Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+% Copyright: ETH Zurich & TU Darmstadt, 2012
+% Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
+
 function run_experiment(config_file)
 
     if ~exist('config_file', 'var')
@@ -33,7 +38,7 @@ function run_experiment(config_file)
         elseif Config.apriori == 0
             for i = 1:length(class_func) 
                 if Config.cross_validation == 1
-                    data_selection_cv(Config, str2func(class_func{i}), features);
+                    issm.data_selection_cv(Config, str2func(class_func{i}), features);
                 elseif Config.cross_validation == 0
                     data_selection_nocv(Config, str2func(class_func{i}), features);
                 end
