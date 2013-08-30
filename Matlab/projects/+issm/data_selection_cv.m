@@ -74,6 +74,7 @@ end
 %% Generate Samples
 
 samples = cell(1,C);
+households = cell(1,C);
 truth = cell(1,C);
 
 for c = 1:C
@@ -81,6 +82,7 @@ for c = 1:C
     N = length(ids{c}) * num_traces_per_household;
     
 	samples{c} = zeros(compose_featureset('dim', feat_set), N);
+    households{c} = zeros(1, N);
 	truth{c} = ones(1,N) * c;
 
 	avg_time = 0;
@@ -101,6 +103,7 @@ for c = 1:C
                 continue;
             end
             samples{c}(:,idx) = compose_featureset(weekly_trace', feat_set);
+            households{c}(:,idx) = id;
         end
         
         t = toc;
@@ -109,11 +112,13 @@ for c = 1:C
 		fprintf('Progress: %i%% (%i of %i). ETA: %s\n', round(i*100/num_households), i, num_households, seconds2str(eta));
     end
     samples{c}(:,itemsToDelete) = [];
+    households{c}(:,itemsToDelete) = [];
     truth{c}(:,itemsToDelete) = [];
 end
 
 sD.classes = classes;
 sD.samples = samples;
+sD.households = households;
 sD.truth = truth;
 
 %% Store Data Struct

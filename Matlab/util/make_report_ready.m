@@ -51,7 +51,12 @@ function varargout = make_report_ready(fig_h, varargin)
 					elseif (strcmpi(value, 'presentation_large'))
 						width = 18;
 						height = 13.5; 
-						linewidth = 3;
+						linewidth = 4;
+						fontsize = 22;
+					elseif (strcmpi(value, 'presentation_large_thin_line'))
+						width = 18;
+						height = 13.5; 
+						linewidth = 1;
 						fontsize = 22;
 					elseif (strcmpi(value, 'subplot'))
 						width = 8.4;

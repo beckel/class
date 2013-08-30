@@ -9,7 +9,7 @@ function [t, distance] = classify_svm(sC)
         t = 1;
         return;
     end
-        
+    
     % Set Parameters
 	params = sC.params;
 	% Quiet Mode

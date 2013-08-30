@@ -99,13 +99,18 @@ fprintf(fid, '-------------\n');
 fprintf(fid, '\t%s\n', method);
 fprintf(fid, '\nSelected Features:\n');
 fprintf(fid, '--------------\n');
-for i = 1:length(sFSR.feat_best)-1
-	fprintf(fid, '\t%i', sFSR.feat_best(i));
+if isempty(sFSR.feat_best)
+    fprintf(fid, '\tWARNING: ALL CLASSIFICATIONS FAILED!\n\n');
+else
+    for i = 1:length(sFSR.feat_best)-1
+        fprintf(fid, '\t%i', sFSR.feat_best(i));
+    end
+    fprintf(fid, '\t%i\n', sFSR.feat_best(end));
+    fprintf(fid, '\nCross validation: %s', num2str(Config.cross_validation));
+    fprintf(fid, '\nFeature set: %s', num2str(Config.feature_set));
+    fprintf(fid, '\nFeature selection: %s', num2str(Config.feature_selection));
+    fprintf(fid, '\nFigure of merit: %s\n', figureOfMerit.printText());
+    fprintf(fid, '\nResult (%s): %.2f%%\n', figureOfMerit.printShortText(), figureOfMerit.evaluate(sCR)*100);
 end
-fprintf(fid, '\t%i\n', sFSR.feat_best(end));
-fprintf(fid, '\nCross validation: %s', num2str(Config.cross_validation));
-fprintf(fid, '\nFeature set: %s', num2str(Config.feature_set));
-fprintf(fid, '\nFeature selection: %s', num2str(Config.feature_selection));
-fprintf(fid, '\nFigure of merit: %s\n', figureOfMerit.printText());
-fprintf(fid, '\nResult (%s): %.2f%%\n', figureOfMerit.printShortText(), figureOfMerit.evaluate(sCR)*100);
+
 end

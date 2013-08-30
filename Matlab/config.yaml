@@ -30,7 +30,7 @@ weeks:
 
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
-perform_data_collection: 1
+perform_data_collection: 0
 
 # Should classification be performed?
 # [ 0 .. 1 ]
@@ -57,10 +57,10 @@ figure_of_merit:
   
 # Classification methods
 classifiers:
-#  - lda
-#  - knn
+  - lda
+  - knn
   - mahal
-#  - svm
+  - svm
 
 # Feature selection
 # [ sfs, psfs ] currently implemented
