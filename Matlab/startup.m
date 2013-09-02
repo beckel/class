@@ -28,6 +28,7 @@ addpath('features/ratios');
 addpath('features/statistical');
 addpath('features/temporal');
 addpath('features/distribution');
+addpath('features/multi_week');
 
 addpath('featuresets');
 
