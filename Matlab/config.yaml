@@ -54,6 +54,10 @@ perform_data_collection: 1
 # [ 0 .. 1 ]
 perform_classification: 1
 
+# Classifying 'weeks' (1) or 'households' (0).
+# Classifying households: majority of weeks determines label
+classification_type: 'households'
+
 # Path where to store classification results
 path_classification: 'results/classification/'
 

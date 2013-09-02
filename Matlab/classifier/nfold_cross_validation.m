@@ -53,10 +53,12 @@ function [sCR, f] = nfold_cross_validation(sCV, figureOfMerit)
 		end
 		test_set = zeros(D,N);
 		test_truth = zeros(1,N);
+        households = zeros(1,N);
 		i = 1;
 		for c = 1:C
 			test_set(:,i:i+length(inds_s{c,s})-1) = sCV.samples{c}(:,inds_s{c,s});
 			test_truth(i:i+length(inds_s{c,s})-1) = sCV.truth{c}(inds_s{c,s});
+            households(i:i+length(inds_s{c,s})-1) = sCV.households{c}(inds_s{c,s});
 			i = i + length(inds_s{c,s});
 		end
 		
@@ -83,7 +85,9 @@ function [sCR, f] = nfold_cross_validation(sCV, figureOfMerit)
 		sC.training_truth = training_truth;
 		sC.test_truth = test_truth;
 		sC.classes = sCV.classes;
-
+        sC.households = households;
+        sC.classification_type = sCV.classification_type;
+        
         % check for NaN
         for i=1:length(sC.training_set)
             if isnan(sC.training_set(i))

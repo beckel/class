@@ -30,7 +30,18 @@ function [sCR, f, distance] = classify_generic(sC, figureOfMerit)
         t = func(sC);
     end
 	
-	confusion = calc_confusion(sC.test_truth, t, length(sC.classes));
+    % two types of determining the confusion matrix. 
+    % (a) for each week of consumption data
+    % (b) check if household was classified correctly by evaluating the
+    % majority of weeks that were classified
+	if strcmp(sC.classification_type, 'weeks')
+        confusion = calc_confusion(sC.test_truth, t, length(sC.classes));
+    elseif strcmp(sC.classification_type, 'households')
+        confusion = calc_confusion_households(sC.test_truth, t, length(sC.classes), sC.households);
+    else
+        error('Unknown classification type\n');
+    end
+    
 	sCR.confusion = confusion;
     
 	

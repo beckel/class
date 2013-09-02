@@ -7,6 +7,7 @@ function classification(Config, sCV, method, sInfo, featSelect, figureOfMerit)
 
 sCV.method = method;
 sCV.params = [];
+sCV.classification_type = Config.classification_type;
 
 % choose cross validation or not based in input parameter
 if Config.cross_validation == 1
