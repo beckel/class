@@ -5,7 +5,9 @@
 
 % time above mean on weekdays (Mo 0 am - Fr 12 pm), weekday average
 function feature = time_above_mean_weekday_avg(consumption)
-	if (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 1;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

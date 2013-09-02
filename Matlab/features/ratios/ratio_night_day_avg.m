@@ -5,7 +5,9 @@
 
 % night consumption / day consumption (night: 01am-05am, day: 6am-10pm) - weekday average
 function feature = ratio_night_day_avg(consumption)
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 1;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

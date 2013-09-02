@@ -28,9 +28,27 @@ weeks:
   - 31
   - 32
 
+reference_weeks:
+
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
+  - 31
+  - 32
+  - 33
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+
+
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
-perform_data_collection: 0
+perform_data_collection: 1
 
 # Should classification be performed?
 # [ 0 .. 1 ]
@@ -78,14 +96,14 @@ feature_set: 'issm.feature_set_all'
 classes:
 #  - '@issm.classes.class_absence'
 #  - '@issm.classes.class_all_employed'
-  - '@issm.classes.class_appliances'
+#  - '@issm.classes.class_appliances'
 #  - '@issm.classes.class_children'
 #  - '@issm.classes.class_coffee_machine'
 #  - '@issm.classes.class_employment'
 #  - '@issm.classes.class_floorarea'
-#  - '@issm.classes.class_lightbulb_ratio'
+  - '@issm.classes.class_lightbulb_ratio'
 #  - '@issm.classes.class_hours_tv'
-#  - '@issm.classes.class_many_lightbulbs'
+  - '@issm.classes.class_many_lightbulbs'
 #  - '@issm.classes.class_oefeli'
 #  - '@issm.classes.class_old_house'
 #  - '@issm.classes.class_singles'

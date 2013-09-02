@@ -5,7 +5,9 @@
 
 % time above mean on week-end (Sa 0 am - Su 12 pm)
 function feature = time_above_mean_weekend(consumption)
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 2;
 	elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

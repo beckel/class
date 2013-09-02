@@ -5,7 +5,9 @@
 
 % variance throughout the day - week average
 function feature = variance_avg(consumption)
-	if (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 1;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 96*7;

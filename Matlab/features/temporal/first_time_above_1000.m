@@ -5,7 +5,9 @@
 
 % first time above 1000W on weekdays (0 if threshold is not reached)
 function feature = first_time_above_1000(consumption)
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 7;
 	elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

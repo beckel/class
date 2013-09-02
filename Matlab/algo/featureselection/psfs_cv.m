@@ -28,7 +28,7 @@ function [sCR, f, sFSR] = psfs_cv(sFS, figureOfMerit)
 		P_i = size(unused,2); % P_i = P, except for first iteration
 		f_i = zeros(D-d+1,P_i);
 		for p = 1:P_i
-			fprintf('Branch: %i...\n',p);
+			fprintf('\nBranch: %i...\n',p);
 			D_i = size(unused,1);
 			for i = 1:D_i
                 if (isempty(used))
@@ -66,7 +66,7 @@ function [sCR, f, sFSR] = psfs_cv(sFS, figureOfMerit)
 		% Choose best figures of merit
 		[f_i_sorted sort_idx] = sort(f_i(:), 'descend');
 		f_opt(d,:) = f_i_sorted(1:P)';
-        fprintf('best %s: %f\n', figureOfMerit.printText(), max(f_opt(d,:)));
+        fprintf('\n\nbest %s: %f\n', figureOfMerit.printText(), max(f_opt(d,:)));
 		% Choose best P feature sets
 		for p = 1:P
 			[f_plus_ind branch] = ind2sub(size(f_i), sort_idx(p));

@@ -5,7 +5,9 @@
 
 % average consumption around noon (10am - 2pm) - weekday average
 function feature = cons_noon_weekday_avg(consumption)
-	if (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 1;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

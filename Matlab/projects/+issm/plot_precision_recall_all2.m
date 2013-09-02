@@ -163,8 +163,8 @@ plotShapes = {...
         set(x(i), 'MarkerFaceColor', plotColors{i});
     end
   
-    ylim([0.5 1]);
-    xlim([0.5 1]);
+    ylim([0.3 1]);
+    xlim([0.3 1]);
    
     legend(x, l_legend, 'Location', 'NorthOutside');
 

@@ -27,7 +27,7 @@ function [sCR, f, sFSR] = psfs_nocv(sFS, figureOfMerit)
 		P_i = size(unused,2); % P_i = P, except for first iteration
 		f_i = zeros(D-d+1,P_i);
 		for p = 1:P_i
-			fprintf('Branch: %i...\n',p);
+			fprintf('\nBranch: %i...\n',p);
 			D_i = size(unused,1);
 			for i = 1:D_i
 				if (isempty(used))

@@ -5,7 +5,9 @@
 
 % time of daily maximum - week average
 function feature = first_time_daily_max_weekday_avg(consumption)
-	if (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 1;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 96*7;

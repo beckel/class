@@ -8,7 +8,9 @@
 % http://www.icbm.de/studproj/kp_helgoland_05/tsa_korrelation.html"
 function feature = cross_correlation(consumption)
     
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 4;
 	elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

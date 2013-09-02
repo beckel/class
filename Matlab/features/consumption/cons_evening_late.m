@@ -5,7 +5,9 @@
 
 % average consumption during evenings (6pm-10pm)
 function feature = cons_evening_late(consumption)
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 7;
 	elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

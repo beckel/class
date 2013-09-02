@@ -5,7 +5,9 @@
 
 % morning consumption (cons_morning) / noon consumption (cons_noon) on weekdays
 function feature = ratio_morning_noon_weekday(consumption)
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 5;
 	elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

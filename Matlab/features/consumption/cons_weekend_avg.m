@@ -5,7 +5,9 @@
 
 % average consumption week-end (Sa 0 am - Su 12 pm) - week-end average
 function feature = cons_weekend_avg(consumption)
-	if (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 1;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

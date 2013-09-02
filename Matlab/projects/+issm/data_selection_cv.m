@@ -10,6 +10,7 @@ fprintf('\nCollect household properties: %s\n\n', class_func('name'));
 path = [ Config.path_classification, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
 traces_per_household = Config.weeks;
 num_traces_per_household = length(traces_per_household);
+reference_traces = Config.reference_weeks;
 
 % ISSM: load consumption
 load('consumption_questionnaires');
@@ -92,7 +93,22 @@ for c = 1:C
 
 		id = ids{c}(i);
         Consumer = get_weekly_consumption(id, 'issm');
-            
+
+        % get average consumption from all weeks that count as a reference
+        % (e.g., summer weeks)
+        reference_avg = zeros(1,length(Consumer.consumption));
+        weeks_to_delete = [];
+        for j = 1:length(reference_traces)
+            week = reference_traces{j};
+            weekly_trace = Consumer.consumption(week, :);
+            if sum(weekly_trace == 0) > 4
+                weeks_to_delete(end+1) = j;
+                continue;
+            end
+            reference_avg = reference_avg + weekly_trace;
+        end
+        reference_avg = reference_avg ./ (j - length(weeks_to_delete));
+                    
         for j = 1:num_traces_per_household
             idx = (i-1)*num_traces_per_household + j;
             week = traces_per_household{j};
@@ -102,7 +118,9 @@ for c = 1:C
                 itemsToDelete(end+1) = idx;
                 continue;
             end
-            samples{c}(:,idx) = compose_featureset(weekly_trace', feat_set);
+            
+            % add summer consumption as reference
+            samples{c}(:,idx) = compose_featureset(weekly_trace', feat_set, reference_avg);
             households{c}(:,idx) = id;
         end
         

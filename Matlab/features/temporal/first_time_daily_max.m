@@ -5,7 +5,9 @@
 
 % time of daily maximum
 function feature = first_time_daily_max(consumption)
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 7;
 	elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

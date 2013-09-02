@@ -5,7 +5,9 @@
 
 % number of peaks: number (on a day) of values with two neighbors that have at least 200mW less consumption
 function feature = num_peaks(consumption)
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 7;
 	elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;

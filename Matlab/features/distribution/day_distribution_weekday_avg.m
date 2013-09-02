@@ -7,7 +7,9 @@
 % avg over weekdays of a week
 function feature = day_distribution_weekday_avg(consumption)
     dimension = 96;
-    if (strcmp(consumption, 'dim'))
+    if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = dimension;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 96*7;

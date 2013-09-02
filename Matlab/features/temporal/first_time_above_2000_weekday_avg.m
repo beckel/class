@@ -5,7 +5,9 @@
 
 % first time above 2000W on weekdays - weekday average (excluding days where threshold is not reached)
 function feature = first_time_above_2000_weekday_avg(consumption)
-	if (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'reference')
+        feature = 0;
+    elseif (strcmp(consumption, 'dim'))
 		feature = 1;
     elseif (strcmp(consumption, 'input_dim'))
         feature = 48*7;
