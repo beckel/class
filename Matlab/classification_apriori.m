@@ -8,7 +8,7 @@ function classification_apriori(Config, sCV, method, sInfo, featSelect, figureOf
 sCV.method = method;
 sCV.params = [];
 
-path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/', Config.feature_selection, '/'];
+path = [ Config.path_apriori, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/', Config.feature_selection, '/'];
 
 A = length(sCV.apriori_classes);
 

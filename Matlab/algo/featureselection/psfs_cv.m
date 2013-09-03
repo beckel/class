@@ -66,7 +66,7 @@ function [sCR, f, sFSR] = psfs_cv(sFS, figureOfMerit)
 		% Choose best figures of merit
 		[f_i_sorted sort_idx] = sort(f_i(:), 'descend');
 		f_opt(d,:) = f_i_sorted(1:P)';
-        fprintf('\n\nbest %s: %f\n', figureOfMerit.printText(), max(f_opt(d,:)));
+        fprintf('\n\nbest %s: %f\n\n', figureOfMerit.printText(), max(f_opt(d,:)));
 		% Choose best P feature sets
 		for p = 1:P
 			[f_plus_ind branch] = ind2sub(size(f_i), sort_idx(p));

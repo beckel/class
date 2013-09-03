@@ -5,7 +5,7 @@
 
 function data_selection_cv_apriori(Config, apriori_class_func, class_func, feat_func)
 
-path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
+path = [ Config.path_apriori, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
 
 %% Settings
  
@@ -66,7 +66,7 @@ for a = 1:A
             tic;
             id = ids{a,c}(i);
             Consumption = get_weekly_consumption(id, 'cer_ireland');
-            samples{a,c}(:,i) = compose_featureset(Consumption.consumption(Config.week,:)', feat_set);
+            samples{a,c}(:,i) = compose_featureset(Consumption.consumption(Config.weeks{1},:)', feat_set);
             t = toc;
             avg_time = (avg_time * (i-1) + t * 1) / i;
             eta = avg_time * (N - i);

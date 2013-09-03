@@ -5,7 +5,7 @@
 
 function data_selection_nocv_apriori(Config, apriori_class_func, class_func, feat_func)
 
-path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
+path = [ Config.path_apriori, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
 
 %% Settings
 
@@ -60,7 +60,7 @@ test_truth = cell(A,C);
 
 for a = 1:A
 	for c = 1:C
-		[training_set{a,c}, test_set{a,c}] = collect_feature_vectors_nocv(feat_set, ids{a,c}, Config.week);
+		[training_set{a,c}, test_set{a,c}] = collect_feature_vectors_nocv(feat_set, ids{a,c}, Config.weeks{1});
 		training_truth{a,c} = ones(1,size(training_set{a,c},2)) * c;
 		test_truth{a,c} = ones(1,size(test_set{a,c},2)) * c;
 	end

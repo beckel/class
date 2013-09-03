@@ -5,7 +5,7 @@
 
 function data_selection_cv_restricted(Config, class_func, restrict_func, feat_func)
 
-path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
+path = [ Config.path_apriori, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
 
 %% Settings
 
@@ -78,7 +78,7 @@ for c = 1:C
 %         if ~isempty(num_zero_sequences)
 %             itemsToDelete(end+1) = i;
 %         end
-        samples{c}(:,i) = compose_featureset(Consumption.consumption(Config.week,:)', feat_set);
+        samples{c}(:,i) = compose_featureset(Consumption.consumption(Config.weeks{1},:)', feat_set);
 
 		t = toc;
 		avg_time = (avg_time * (i-1) + t * 1) / i;

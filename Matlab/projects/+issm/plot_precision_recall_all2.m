@@ -7,7 +7,7 @@ function plot_precision_recall_all2()
 	
     %% Preset Files 
 	
-	result_path = 'projects/+issm/results/classification/26/CrossValid1/issm.feature_set_all/psfs/';
+	result_path = 'projects/+issm/results/classification_aarau_counting_weeks/26/CrossValid1/issm.feature_set_all/psfs/';
 	figure_path = 'projects/+issm/images/';
     
     labels = { ...
@@ -88,7 +88,9 @@ plotShapes = {...
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-	%% Sort results by f_1 measure, best result first
+    num_labels = length(labels);
+    
+%% Sort results by f_1 measure, best result first
 	best_results = zeros(1,length(labels));
 	for i = 1:length(labels)
 		f1_max = 0;
@@ -109,9 +111,10 @@ plotShapes = {...
 	labels = labels(idx);
 	l_legend = l_legend(idx);
     
-    % determine accuracy for each 'bar'
+    % determine f_measure for each 'bar'
     values = zeros(3, length(labels));
     description = cell(1, length(labels));
+    value_added = ones(1, num_labels);
     for f = 1:length(labels)
         f1_max = 0;
         f1_all_methods = zeros(1,length(method));
@@ -130,6 +133,11 @@ plotShapes = {...
 			end
         end 
         
+        if m_max == 0
+            value_added(f) = 0;
+            continue;
+        end
+        
 		load([result_path, 'sCR-', labels{f}, '_accuracy_', method{m_max}, '.mat']);
 		
         if idx(f) <= positive_idx
@@ -144,6 +152,8 @@ plotShapes = {...
         description{1,f} = l_legend{f};
     end
    
+    l_legend = l_legend(find(value_added>0));
+    
     %% Plot results
 	fig_h = figure();
     hold on;

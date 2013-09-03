@@ -33,7 +33,6 @@ addpath('features/multi_week');
 addpath('featuresets');
 
 addpath('projects');
-addpath('projects/confidence');
 
 addpath('util');
 

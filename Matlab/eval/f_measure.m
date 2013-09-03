@@ -24,7 +24,7 @@ function f = f_measure(sCR, idx, basis)
 		prec = precision(sCR, basis);
         rec = recall(sCR, basis);
         f = (1+idx^2) * (prec*rec) / (idx^2 * prec + rec);
-	else
+    else 
 		f = 0;
 	end
 end

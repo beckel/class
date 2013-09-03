@@ -7,7 +7,7 @@ function plot_classification_accuracy()
 	
     %% Preset Files 
 	
-	result_path = 'projects/+issm/results/classification/26/CrossValid1/issm.feature_set_all/psfs/';
+	result_path = 'projects/+issm/results/classification_aarau_counting_weeks/26/CrossValid1/issm.feature_set_all/psfs/';
 	figure_path = 'projects/+issm/images/';
 
     labels = { ...

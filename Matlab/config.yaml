@@ -3,22 +3,20 @@
 # Copyright: ETH Zurich & TU Darmstadt, 2012
 # Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-# Which week should be used for the analysis?
-week: 26
-# refactoring needed: weeks instead of week
+# Dataset (e.g., 'issm', 'cer_ireland')
+dataset: 'cer_ireland'
+
+# Which weeks should be used for the analysis?
 weeks: 
-  - 7
-  - 8
-  - 9
-  - 10
-  - 11
-  - 12
-  - 13
+  - 14
+  - 15
   - 16
+  - 17
+  - 18
   - 19
   - 20
   - 21
-  - 24
+  - 22
   - 25
   - 26
   - 27
@@ -27,24 +25,10 @@ weeks:
   - 30
   - 31
   - 32
-
-reference_weeks:
-
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 31
-  - 32
   - 33
-  - 34
-  - 35
-  - 36
-  - 37
-  - 38
-
+  
+# Some features require a reference to other weeks (e.g., during summer/winter).
+reference_weeks:
 
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
@@ -94,7 +78,7 @@ cross_validation: 1
 
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
-feature_set: 'issm.feature_set_all'
+feature_set: 'ireland.feature_set_all'
     
 # Classes that are to be classified
 classes:
@@ -105,9 +89,9 @@ classes:
 #  - '@issm.classes.class_coffee_machine'
 #  - '@issm.classes.class_employment'
 #  - '@issm.classes.class_floorarea'
-  - '@issm.classes.class_lightbulb_ratio'
+#  - '@issm.classes.class_lightbulb_ratio'
 #  - '@issm.classes.class_hours_tv'
-  - '@issm.classes.class_many_lightbulbs'
+#  - '@issm.classes.class_many_lightbulbs'
 #  - '@issm.classes.class_oefeli'
 #  - '@issm.classes.class_old_house'
 #  - '@issm.classes.class_singles'
@@ -115,10 +99,9 @@ classes:
 #  - '@issm.classes.class_washing_machine'
 #  - '@issm.classes.class_water_heating'
 
-#  - '@class_appliances'
+  - '@class_appliances'
 #  - '@class_bedrooms'
 #  - '@class_devices'
-#  - '@class_devices_complex'
 #  - '@class_dink'
 #  - '@class_ecooking'
 #  - '@class_eheating'
@@ -132,7 +115,6 @@ classes:
 #  - '@class_retired'
 #  - '@class_singles'
 #  - '@class_socialclass'
-
 
 
 ## A PRIORI KNOWLEDGE

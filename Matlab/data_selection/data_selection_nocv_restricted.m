@@ -5,7 +5,7 @@
 
 function data_selection_nocv_restricted(Config, class_func, restrict_func, feat_func)
 
-path = [ Config.path_apriori, num2str(Config.week), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
+path = [ Config.path_apriori, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
 
 %% Settings
 
@@ -63,7 +63,7 @@ test_set = cell(1,C);
 test_truth = cell(1,C);
 
 for c = 1:C
-	[training_set{c}, test_set{c}] = collect_feature_vectors_nocv(feat_set, ids{c}, Config.week);
+	[training_set{c}, test_set{c}] = collect_feature_vectors_nocv(feat_set, ids{c}, Config.weeks{1});
 	training_truth{c} = ones(1,size(training_set{c},2)) * c;
 	test_truth{c} = ones(1,size(test_set{c},2)) * c;
 end
