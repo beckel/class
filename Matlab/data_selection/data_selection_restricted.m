@@ -3,9 +3,9 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function data_selection_nocv_restricted(Config, class_func, restrict_func, feat_func)
+function data_selection_restricted(Config, class_func, restrict_func, feat_func)
 
-path = [ Config.path_apriori, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
+path = [ Config.path_apriori, num2str(Config.weeks{1}), '/', Config.feature_set, '/'];
 
 %% Settings
 
@@ -57,22 +57,41 @@ close(connection);
 
 %% Generate Samples
 
-training_set = cell(1,C);
-training_truth = cell(1,C);
-test_set = cell(1,C);
-test_truth = cell(1,C);
+samples = cell(1,C);
+truth = cell(1,C);
 
 for c = 1:C
-	[training_set{c}, test_set{c}] = collect_feature_vectors_nocv(feat_set, ids{c}, Config.weeks{1});
-	training_truth{c} = ones(1,size(training_set{c},2)) * c;
-	test_truth{c} = ones(1,size(test_set{c},2)) * c;
+	N = length(ids{c});
+    
+	samples{c} = zeros(compose_featureset('dim', feat_set), N);
+	truth{c} = ones(1,N) * c;
+
+	avg_time = 0;
+%     itemsToDelete = [];
+    for i = 1:N
+		tic;
+
+		id = ids{c}(i);
+		Consumption = get_weekly_consumption(id, 'cer_ireland');
+        % number of zeros in this week
+%         num_zero_sequences = strfind(Consumption.consumption(week,:),[0 0 0]);
+%         if ~isempty(num_zero_sequences)
+%             itemsToDelete(end+1) = i;
+%         end
+        samples{c}(:,i) = compose_featureset(Consumption.consumption(Config.weeks{1},:)', feat_set);
+
+		t = toc;
+		avg_time = (avg_time * (i-1) + t * 1) / i;
+		eta = avg_time * (N - i);
+		fprintf('Progress: %i%% (%i of %i). ETA: %s\n', round(i*100/N), i, N, seconds2str(eta));
+    end
+%     samples{c}(:,itemsToDelete) = [];
+%     truth{c}(:,itemsToDelete) = [];
 end
 
 sD.classes = classes;
-sD.training_set = training_set;
-sD.test_set = test_set;
-sD.training_truth = training_truth;
-sD.test_truth = test_truth;
+sD.samples = samples;
+sD.truth = truth;
 
 %% Store Data Struct
 
@@ -106,7 +125,7 @@ end
 fprintf(fid, 'Classes:\n');
 fprintf(fid, '--------\n');
 for c = 1:C
-	fprintf(fid, ['\t%i:\t%-', num2str(maxlength), 's\t\t%4i training, %6i test\n'], c, classes{c}, size(sD.training_set{c},2), size(sD.test_set{c},2));
+	fprintf(fid, ['\t%i:\t%-', num2str(maxlength), 's\t\t%4i samples\n'], c, classes{c}, size(sD.samples{c},2));
 end
 fprintf(fid, '\nRestriction:\n');
 fprintf(fid, '------------\n');
@@ -118,7 +137,7 @@ for c = 1:C
 end
 fprintf(fid, '\nFeature Set:\n');
 fprintf(fid, '--------------\n');
-maxlength = 0;
+maxlength = 0; 
 for f = 1:length(feat_set)
 	if (length(func2str(feat_set{f})) > maxlength)
 		maxlength = length(func2str(feat_set{f}));

@@ -3,9 +3,9 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function data_selection_cv_apriori(Config, apriori_class_func, class_func, feat_func)
+function data_selection_apriori(Config, apriori_class_func, class_func, feat_func)
 
-path = [ Config.path_apriori, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
+path = [ Config.path_apriori, num2str(Config.weeks{1}), '/', Config.feature_set, '/'];
 
 %% Settings
  

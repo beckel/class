@@ -65,14 +65,16 @@ function [t, distance] = classify_svmperf(sC)
     tic;
     % model = svmtrain(sC.training_truth', sC.training_set', options);
     
-    model = svmperflearn(sC.training_set, sC.training_truth, '-c 1 -w 3 --t 2 --b 0');
+    model = svmperflearn(sC.training_set', sC.training_truth', '-c 1 -w 3 --t 2 --i 0 --b 0');
     
     
     time = toc
-    % [predict_label, ~, class_probabilities] = svmpredict(sC.test_truth', sC.test_set', model, '-b 1');
     options = '';
-    options = [options, ' -q'];
-    [predict_label, ~, class_probabilities] = predict(sC.test_truth', sparse(sC.test_set'), model, options);
+%    options = [options, ' -q'];
+    predictions = svmperfclassify(sC.test_truth', sC.test_set', model);
+    % [predict_label, ~, class_probabilities] = svmperfclassify(sC.test_truth, sparse(sC.test_set'), model, options);
+    
+    
     t = predict_label';
     distance = class_probabilities(:,1);
 

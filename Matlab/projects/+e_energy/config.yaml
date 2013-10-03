@@ -6,29 +6,28 @@
 # Dataset (e.g., 'issm', 'cer_ireland')
 dataset: 'cer_ireland'
 
-# Which weeks should be used for the analysis?
+# Which week should be used for the analysis?
+week: 26
+# refactoring needed: weeks instead of week
 weeks: 
-  - 14
-  - 15
-  - 16
-  - 17
-  - 18
-  - 19
-  - 20
-  - 21
-  - 22
-  - 25
   - 26
-  - 27
-  - 28
-  - 29
-  - 30
+
+reference_weeks:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
   - 31
   - 32
   - 33
-  
-# Some features require a reference to other weeks (e.g., during summer/winter).
-reference_weeks:
+  - 34
+  - 35
+  - 36
+  - 37
+  - 38
+
 
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
@@ -40,7 +39,7 @@ perform_classification: 1
 
 # Classifying 'weeks' (1) or 'households' (0).
 # Classifying households: majority of weeks determines label
-classification_type: 'households'
+classification_type: 'weeks'
 
 # Path where to store classification results
 path_classification: 'results/classification/'
@@ -63,18 +62,22 @@ figure_of_merit:
   
 # Classification methods
 classifiers:
-#  - lda
-#  - knn
-#  - mahal
+  - lda
+  - knn
+  - mahal
   - svm
- 
+
 # Feature selection
 # [ sfs, psfs ] currently implemented
-feature_selection: 'sffs'
+feature_selection: 'psfs'
   
+# Use cross validation?
+# [ 0 .. 1 ]
+cross_validation: 1
+
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
-feature_set: 'ireland.feature_set_all'
+feature_set: 'e_energy.feature_set_all'
     
 # Classes that are to be classified
 classes:
@@ -98,6 +101,7 @@ classes:
 #  - '@class_appliances'
 #  - '@class_bedrooms'
 #  - '@class_devices'
+#  - '@class_devices_complex'
 #  - '@class_dink'
 #  - '@class_ecooking'
 #  - '@class_eheating'

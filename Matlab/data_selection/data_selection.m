@@ -3,11 +3,11 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function data_selection_cv(Config, class_func, feat_func)
+function data_selection(Config, class_func, feat_func)
 
 fprintf('\nCollect household properties: %s\n\n', class_func('name'));
 
-path = [ Config.path_classification, num2str(Config.weeks{1}), '/CrossValid', num2str(Config.cross_validation), '/', Config.feature_set, '/'];
+path = [ Config.path_classification, num2str(Config.weeks{1}), '/', Config.feature_set, '/'];
 traces_per_household = Config.weeks;
 num_traces_per_household = length(traces_per_household);
 reference_traces = Config.reference_weeks;

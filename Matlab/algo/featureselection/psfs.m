@@ -3,7 +3,7 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function [sCR, f, sFSR] = psfs_cv(sFS, figureOfMerit)
+function [sCR, sFSR] = psfs(sFS, figureOfMerit)
 	C = length(sFS.classes);
 	D = size(sFS.samples{1}, 1);
 	P = sFS.P;
@@ -89,7 +89,7 @@ function [sCR, f, sFSR] = psfs_cv(sFS, figureOfMerit)
     for c = 1:C
         sCV.samples{c} = sFS.samples{c}(feat_best,:);
     end
-    [sCR, f] = nfold_cross_validation(sCV, figureOfMerit);
+    [sCR, ~] = nfold_cross_validation(sCV, figureOfMerit);
 	
 	sFSR.feat_opt = feat_opt;
 	sFSR.f_opt = f_opt;

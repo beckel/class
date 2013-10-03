@@ -41,6 +41,9 @@ addpath('lib/YAMLMatlab_0.4.3');
 addpath('lib/libsvm/');
 addpath('lib/libsvm/matlab/');
 
+%addpath('lib/liblinear-1.93/');
+%addpath('lib/liblinear-1.93/matlab/');
+
 addpath('plot');
 addpath('plot/images');
 
