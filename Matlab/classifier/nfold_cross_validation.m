@@ -79,7 +79,7 @@ function [sCR, f] = nfold_cross_validation(sCV, figureOfMerit)
 		
 		%% Classification	
 		sC.method = sCV.method;
-		sC.params = sCV.params;
+		sC.classifier_params = sCV.classifier_params;
 		sC.test_set = test_set;
 		sC.training_set = training_set;
 		sC.training_truth = training_truth;

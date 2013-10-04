@@ -5,13 +5,21 @@
 
 function [t, distance] = classify_svm(sC)
 
-    svm_scaling_factor = 0.2;
-    
     if (strcmp(sC, 'supports_distance'))
         t = 1;
         return;
     end
-    
+
+    for i = 1:length(sC.classifier_params)
+        param = sC.classifier_params{i};
+        if strcmp(param{1}, 'svm_scaling_factor') == 1
+            svm_scaling_factor = 0.2;
+        end
+    end
+    if exist('svm_scaling_factor', 'var') == 0
+        svm_scaling_factor = 0.2;
+    end
+        
     options = '';
  	options = [options, ' -h 1']; % use no shrinking heuristic
 %  	options = [options, ' -t 2']; % kernel type

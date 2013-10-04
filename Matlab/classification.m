@@ -6,8 +6,8 @@
 function classification(Config, sCV, method, sInfo, featSelect, figureOfMerit)
 
 sCV.method = method;
-sCV.params = [0.2];
 sCV.classification_type = Config.classification_type;
+sCV.classifier_params = Config.classifier_params;
 
 % delete all samples that have NaN or Inf in one of their features
 for i = 1:length(sCV.samples)

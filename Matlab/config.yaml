@@ -32,15 +32,24 @@ reference_weeks:
 
 # Should data be collected? (compute features, assign classes, ...)
 # [ 0 .. 1 ]
-perform_data_collection: 1
+perform_data_collection: 0
 
 # Should classification be performed?
 # [ 0 .. 1 ]
-perform_classification: 0
+perform_classification: 1
 
 # Classifying 'weeks' (1) or 'households' (0).
 # Classifying households: majority of weeks determines label
 classification_type: 'households'
+
+classifiers:
+#  - lda
+#  - knn
+#  - mahal
+  - svm
+
+classifier_params:
+  - [ svm_scaling_factor, 0.2 ]
 
 # Path where to store classification results
 path_classification: 'results/classification/'
@@ -111,12 +120,12 @@ classes:
 #   - '@class_employment'
 #   - '@class_families'
 #   - '@class_floorarea'
-  - '@class_housetype'
+#  - '@class_housetype'
 #   - '@class_lightbulbs'
 #   - '@class_nokids'
 #   - '@class_old_house'
 #   - '@class_persons'
 #   - '@class_retired'
-#   - '@class_singles'
+   - '@class_singles'
 #   - '@class_socialclass'
 
