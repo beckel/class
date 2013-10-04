@@ -36,7 +36,7 @@ perform_data_collection: 1
 
 # Should classification be performed?
 # [ 0 .. 1 ]
-perform_classification: 1
+perform_classification: 0
 
 # Classifying 'weeks' (1) or 'households' (0).
 # Classifying households: majority of weeks determines label
@@ -61,13 +61,6 @@ figure_of_merit:
 #  - [ f_measure, '@f_measure', 8 ]
 #  - [ f_measure, '@f_measure', 16 ]
   
-# Classification methods
-classifiers:
-#  - lda
-#  - knn
-#  - mahal
-  - svm
- 
 # Feature selection
 # [ sfs, psfs ] currently implemented
 feature_selection: 'sffs'
@@ -76,43 +69,6 @@ feature_selection: 'sffs'
 # [ e_energy.feature_set_all feature_set_all ]
 feature_set: 'ireland.feature_set_all'
     
-# Classes that are to be classified
-classes:
-#  - '@issm.classes.class_absence'
-#  - '@issm.classes.class_all_employed'
-#  - '@issm.classes.class_appliances'
-#  - '@issm.classes.class_children'
-#  - '@issm.classes.class_coffee_machine'
-#  - '@issm.classes.class_employment'
-#  - '@issm.classes.class_floorarea'
-#  - '@issm.classes.class_lightbulb_ratio'
-#  - '@issm.classes.class_hours_tv'
-#  - '@issm.classes.class_many_lightbulbs'
-#  - '@issm.classes.class_oefeli'
-#  - '@issm.classes.class_old_house'
-#  - '@issm.classes.class_singles'
-#  - '@issm.classes.class_type_house'
-#  - '@issm.classes.class_washing_machine'
-#  - '@issm.classes.class_water_heating'
-
-#  - '@class_appliances'
-#  - '@class_bedrooms'
-#  - '@class_devices'
-#  - '@class_dink'
-#  - '@class_ecooking'
-#  - '@class_eheating'
-#  - '@class_employment'
-#  - '@class_families'
-#  - '@class_floorarea'
-#  - '@class_lightbulbs'
-#  - '@class_nokids'
-#  - '@class_old_house'
-#  - '@class_persons'
-#  - '@class_retired'
-  - '@class_singles'
-#  - '@class_socialclass'
-
-
 ## A PRIORI KNOWLEDGE
 
 # Include apriori knowledge
@@ -143,4 +99,24 @@ apriori_combinations:
   - [ ]
   - [ ]
   - [ ]
+
+
+classes:
+#   - '@class_appliances'
+#   - '@class_bedrooms'
+#   - '@class_devices'
+#   - '@class_dink'
+#   - '@class_ecooking'
+#   - '@class_eheating'
+#   - '@class_employment'
+#   - '@class_families'
+#   - '@class_floorarea'
+  - '@class_housetype'
+#   - '@class_lightbulbs'
+#   - '@class_nokids'
+#   - '@class_old_house'
+#   - '@class_persons'
+#   - '@class_retired'
+#   - '@class_singles'
+#   - '@class_socialclass'
 
