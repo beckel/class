@@ -3,6 +3,12 @@
 # Copyright: ETH Zurich & TU Darmstadt, 2012
 # Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
+# Log to file (1) or console (0)
+log_to_file: 1
+
+# Log levels: 'normal', 'debug'
+log_level: 'debug'
+
 # Dataset (e.g., 'issm', 'cer_ireland')
 dataset: 'cer_ireland'
 
@@ -42,17 +48,12 @@ perform_classification: 1
 # Classifying households: majority of weeks determines label
 classification_type: 'households'
 
-classifiers:
-#  - lda
-#  - knn
-#  - mahal
-  - svm
+# Path where to store classification results
+path_classification: 'results/classification/'
 
 classifier_params:
   - [ svm_scaling_factor, 0.2 ]
-
-# Path where to store classification results
-path_classification: 'results/classification/'
+  - [ num_features, 12 ]
 
 # Optimization criterion (figure of merit)
 # NOTE: f_measure is only possible for two-class classification tasks
@@ -120,12 +121,18 @@ classes:
 #   - '@class_employment'
 #   - '@class_families'
 #   - '@class_floorarea'
-#  - '@class_housetype'
+#   - '@class_housetype'
 #   - '@class_lightbulbs'
 #   - '@class_nokids'
 #   - '@class_old_house'
 #   - '@class_persons'
-#   - '@class_retired'
-   - '@class_singles'
+   - '@class_retired'
+#   - '@class_singles'
 #   - '@class_socialclass'
+
+classifiers:
+#   - lda
+#   - knn
+  - mahal
+#  - svm
 

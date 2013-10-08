@@ -5,7 +5,7 @@
 
 function [sCR, f, distance] = classify_generic(sC, figureOfMerit)
 
-    fprintf('.');
+%     fprintf('.');
 	
     % Check if number of true labels is larger than number of features
     % (required, e.g., for mahalanobis classifier).

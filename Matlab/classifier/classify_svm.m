@@ -13,7 +13,7 @@ function [t, distance] = classify_svm(sC)
     for i = 1:length(sC.classifier_params)
         param = sC.classifier_params{i};
         if strcmp(param{1}, 'svm_scaling_factor') == 1
-            svm_scaling_factor = 0.2;
+            svm_scaling_factor = param{2};
         end
     end
     if exist('svm_scaling_factor', 'var') == 0

@@ -3,11 +3,27 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function classification(Config, sCV, method, sInfo, featSelect, figureOfMerit)
+function classification(Config, sCV, method, sInfo, featSelect, figureOfMerit, log)
 
 sCV.method = method;
 sCV.classification_type = Config.classification_type;
 sCV.classifier_params = Config.classifier_params;
+
+% prepare folder/file for storing classification results
+if any(strcmp('restriction',fieldnames(sInfo)))
+    path = [ Config.path_apriori, num2str(Config.weeks{1}), '/', Config.feature_set, '/', Config.feature_selection, '/'];
+    name = ['sCR-', sInfo.classes, '_restrictedBy_', sInfo.restriction, '_', figureOfMerit.printShortText(), '_', method];
+else
+    path = [ Config.path_classification, num2str(Config.weeks{1}), '/', Config.feature_set, '/', Config.feature_selection, '/'];
+    name = ['sCR-', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
+end
+warning off
+mkdir(path);
+warning on
+log.setLogfile([path, name, '.log']);
+
+% store path/name in sCV to store intermediate results
+sCV.tempfile = [path, name];
 
 % delete all samples that have NaN or Inf in one of their features
 for i = 1:length(sCV.samples)
@@ -19,31 +35,29 @@ end
 sCV.nfold = 4;
 % choose sfs or psfs (feature selection) based in input parameter
 if strcmp(featSelect, 'sfs') == 1
-    [sCR, sFSR] = sfs(sCV, figureOfMerit);
+    [sCR, sFSR] = sfs(sCV, figureOfMerit, log);
 elseif strcmp(featSelect, 'psfs') == 1
     sCV.P = 3;	% Number of branches for psfs
     [sCR, sFSR] = psfs(sCV, figureOfMerit);
 elseif strcmp(featSelect, 'sffs') == 1
-    num_features = 10;
-    [sCR, sFSR] = sffs(sCV, figureOfMerit, num_features);
+    for i = 1:length(sCV.classifier_params)
+        param = sCV.classifier_params{i};
+        if strcmp(param{1}, 'num_features') == 1
+            num_features = param{2};
+        end
+    end
+    if exist('num_features', 'var') == 0
+        num_features = 10;
+    end
+    [sCR, sFSR] = sffs(sCV, figureOfMerit, num_features, log);
 else
     fprintf('Error: invalid feature selection method');
     return;
 end
+fprintf('\n');
 
 %% Store Result Structs
-if any(strcmp('restriction',fieldnames(sInfo)))
-    path = [ Config.path_apriori, num2str(Config.weeks{1}), '/', Config.feature_set, '/', Config.feature_selection, '/'];
-    name = ['sCR-', sInfo.classes, '_restrictedBy_', sInfo.restriction, '_', figureOfMerit.printShortText(), '_', method];
-else
-    path = [ Config.path_classification, num2str(Config.weeks{1}), '/', Config.feature_set, '/', Config.feature_selection, '/'];
-    name = ['sCR-', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
-end
-
 filename = [path, name]; 
-warning off
-mkdir(path);
-warning on
 if (not(exist([filename, '.mat'], 'file')))
 	save([filename, '.mat'], 'sCR', 'sFSR');
 else

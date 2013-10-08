@@ -16,6 +16,9 @@ function run_experiment(config_file)
     
     class_func = Config.classes;
     
+    %% Create log file
+    log = Log('console', Config.log_level);
+    
     %% Compute features and store results in 'results/classification'
     %% Takes a long time - comment out when not needed
     if Config.perform_data_collection == 1
@@ -64,7 +67,7 @@ function run_experiment(config_file)
                         data_file = [Config.path_classification, num2str(Config.weeks{1}), '/', Config.feature_set, '/sD-', class_name, '.mat'];
                         fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
                         load(data_file);
-                        classification(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit);
+                        classification(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit, log);
                     end 
                 end
             % If apriori knowledge is given
@@ -87,13 +90,13 @@ function run_experiment(config_file)
                             data_file = [Config.path_apriori, num2str(Config.weeks{1}), '/', Config.feature_set, '/sD-', class_name, '_restrictedBy_', apriori_name, '.mat'];
                             fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
                             load(data_file);
-                            classification(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit);
+                            classification(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit, log);
 
                             % perform classification based on apriori classes
                             data_file = [Config.path_apriori, num2str(Config.weeks{1}), '/', Config.feature_set, '/sD-', apriori_name, '_knownAprioriWhenClassifying_', class_name, '.mat'];
                             fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
                             load(data_file);
-                            classification_apriori(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit);
+                            classification_apriori(Config, sD, classifiers{m}, sInfo, Config.feature_selection, figureOfMerit, log);
                         end
                     end
                 end

@@ -3,7 +3,9 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function [sCR, sFSR] = sfs(sFS, figureOfMerit, num_features)
+function [sCR, sFSR] = sfs(sFS, figureOfMerit, num_features, exact_number, log)
+
+    log.normal('Feature selection using SFS - %d features\n', num_features);
 
     num_classes = length(sFS.classes);
 	D = size(sFS.samples{1}, 1);
@@ -12,10 +14,13 @@ function [sCR, sFSR] = sfs(sFS, figureOfMerit, num_features)
         num_features = D;
     end
     
+    if exist('exact_number', 'var') == 0
+        exact_number = 0;
+    end
+        
 	feat_opt = zeros(num_features,num_features);
 	f_opt = zeros(1,num_features);
 	for d = 1:num_features
-		fprintf('\nSFS: %i of %i features...\n', d,num_features);
 		if (d == 1)
 			used = [];
 			unused = 1:D;
@@ -36,18 +41,26 @@ function [sCR, sFSR] = sfs(sFS, figureOfMerit, num_features)
 		[f_opt(d), i_opt] = max(f_i);
 		idx = [used; unused(i_opt)];
 		feat_opt(1:length(idx),d) = idx;
-	end
-	
+        log.debug('  Added %d - current set: ', unused(i_opt));
+        log.write_comma_separated_list(feat_opt(1:d, d));
+        log.debug(' - C: %f\n', f_opt(d));
 
-	% Select feature set
-	[~, n_opt] = max(f_opt);
-	feat_best = feat_opt(feat_opt(:,n_opt) > 0,n_opt);
-	sCV = sFS;
-	for c = 1:num_classes
-		sCV.samples{c} = sFS.samples{c}(feat_best,:);
-	end
-	[sCR, ~] = nfold_cross_validation(sCV, figureOfMerit);
+    end
 	
-	sFSR.f_opt = f_opt;
-	sFSR.feat_best = feat_best;
+    if exact_number == 0
+        % Select best feature set
+        [~, n_opt] = max(f_opt);
+        feat_best = feat_opt(feat_opt(:,n_opt) > 0,n_opt);
+    else
+        % Select best feature set with k features
+        feat_best = feat_opt(:,end);
+    end
+    sCV = sFS;
+    for c = 1:num_classes
+        sCV.samples{c} = sFS.samples{c}(feat_best,:);
+    end
+    [sCR, ~] = nfold_cross_validation(sCV, figureOfMerit);
+
+    sFSR.f_opt = f_opt;
+    sFSR.feat_best = feat_best;
 end

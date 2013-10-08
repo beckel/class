@@ -3,12 +3,18 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function classification_apriori(Config, sCV, method, sInfo, featSelect, figureOfMerit)
+function classification_apriori(Config, sCV, method, sInfo, featSelect, figureOfMerit, log)
 
 sCV.method = method;
 sCV.params = [];
 
 path = [ Config.path_apriori, num2str(Config.weeks{1}), '/', Config.feature_set, '/', Config.feature_selection, '/'];
+name = ['sCR-', sInfo.apriori, '_knownAprioriWhenClassifying_', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
+filename = [path, name];
+warning off
+mkdir(path);
+warning on
+log.setLogfile([path, name, '.log']);
 
 A = length(sCV.apriori_classes);
 
@@ -39,12 +45,6 @@ for a = 1:A
 end
 
 %% Store Result Structs
-
-name = ['sCR-', sInfo.apriori, '_knownAprioriWhenClassifying_', sInfo.classes, '_', figureOfMerit.printShortText(), '_', method];
-filename = [path, name];
-warning off
-mkdir(path);
-warning on
 if (not(exist([filename, '.mat'], 'file')))
 	save([filename, '.mat'], 'sCR', 'sFSR');
 else
