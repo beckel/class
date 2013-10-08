@@ -46,6 +46,22 @@ classdef Log < handle
             end
         end
         
+        function error(obj, msg, varargin)
+            if strcmp(obj.log_level, 'debug') == 1
+                if strcmp(obj.log_type, 'console') == 1
+                    fprintf('ERROR: ');
+                    fprintf(msg, varargin{:});
+                    exit;
+                else
+                    fid = fopen(obj.log_file, 'a');
+                    fprintf(fid, 'ERROR: ');
+                    fprintf(fid, msg, varargin{:});
+                    fclose(fid);
+                    exit;
+                end
+            end
+        end
+        
         function setLogfile(obj, file)
             obj.debug('Now logging into %s\n', file);
             if strcmp(file, 'console') == 1

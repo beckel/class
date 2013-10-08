@@ -34,27 +34,33 @@ for i = 1:length(sCV.samples)
 end 
 sCV.nfold = 4;
 % choose sfs or psfs (feature selection) based in input parameter
-if strcmp(featSelect, 'sfs') == 1
-    [sCR, sFSR] = sfs(sCV, figureOfMerit, log);
-elseif strcmp(featSelect, 'psfs') == 1
-    sCV.P = 3;	% Number of branches for psfs
-    [sCR, sFSR] = psfs(sCV, figureOfMerit);
-elseif strcmp(featSelect, 'sffs') == 1
-    for i = 1:length(sCV.classifier_params)
-        param = sCV.classifier_params{i};
-        if strcmp(param{1}, 'num_features') == 1
-            num_features = param{2};
-        end
-    end
-    if exist('num_features', 'var') == 0
-        num_features = 10;
-    end
-    [sCR, sFSR] = sffs(sCV, figureOfMerit, num_features, log);
+% if adaboost use no feature selection
+
+if strcmp(sCV.method, 'adaboost') == 1
+    [sCR, sFSR] = none(sCV, figureOfMerit, log);
 else
-    fprintf('Error: invalid feature selection method');
-    return;
+    if strcmp(featSelect, 'sfs') == 1
+        [sCR, sFSR] = sfs(sCV, figureOfMerit, log);
+    elseif strcmp(featSelect, 'psfs') == 1
+        sCV.P = 3;	% Number of branches for psfs
+        [sCR, sFSR] = psfs(sCV, figureOfMerit);
+    elseif strcmp(featSelect, 'sffs') == 1
+        for i = 1:length(sCV.classifier_params)
+            param = sCV.classifier_params{i};
+            if strcmp(param{1}, 'num_features') == 1
+                num_features = param{2};
+            end
+        end
+        if exist('num_features', 'var') == 0
+            num_features = 10;
+        end
+        [sCR, sFSR] = sffs(sCV, figureOfMerit, num_features, log);
+    else
+        fprintf('Error: invalid feature selection method');
+        return;
+    end
 end
-fprintf('\n');
+    fprintf('\n');
 
 %% Store Result Structs
 filename = [path, name]; 

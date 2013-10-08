@@ -23,6 +23,13 @@ function [sCR, sFSR] = sffs(sFS, figureOfMerit, num_features, log)
 % Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
 % Copyright: ETH Zurich, 2012
 % Author: Christian Beckel (beckel@inf.ethz.ch)
+% Changes: 
+% * Added log output
+% * Adapted to CLASS input/output parameters
+% * Fixed bug: (X_hat{k}=setdiff(X{k+1}, xr); must be before part III
+% * Added logkeeping to avoid endless loops
+% * Leave sets unsorted 
+% * Return n<=num_features features instead of num_features depending on C.
 
 num_classes = length(sFS.classes);
 D = size(sFS.samples{1}, 1);
@@ -37,6 +44,7 @@ for i=1:k
     C{i} = sFSR.f_opt(1:i);
     X{i} = sFSR.feat_best(1:i)';
 end
+logbook = Logbook(num_features);
 
 while k <= num_features
     
@@ -58,22 +66,31 @@ while k <= num_features
     Ct = [];
     for i = 1:length(X{k+1})
         t = setdiff(X{k+1}, X{k+1}(i), 'stable');
-        Ct = [Ct eval_algo(sFS, num_classes, t, figureOfMerit)];
+        % check if this subset has already been tested
+        if logbook.contains(t) == 1
+            Ct = [Ct, -1];
+        else
+            Ct = [Ct eval_algo(sFS, num_classes, t, figureOfMerit)];
+        end
     end
     [J,r] = max(Ct);
     xr = X{k+1}(r);
-    % check if (k+1)th feature is least significant compared to all other features
-    if r == k+1
+    % check if (k+1)th feature is least significant compared to all other
+    % features, or if no new set has been found
+    if r == k+1 || J == -1
         % if so: leave it in the set and continue with next element
         C{k+1} = the_C;
         k = k+1;
+        if J == -1
+            log.debug('  Nothing to exclude without returning to previous set\n');
+        end
         continue;
     end
     
     % if not: ??? why J < C{k}? Is this path ever reached?
     % isn't it endless loop if 'continue' is done?
     if r ~= k+1 & J < C{k}
-        error('I thought this path was never reached');
+        log.debug('  Removing feature %d does not improve C{k} - continue.', xr);
         continue;
     end
     
@@ -88,6 +105,7 @@ while k <= num_features
         continue;
     end
     X_hat{k}=setdiff(X{k+1}, xr, 'stable');
+    logbook.add(X_hat{k});
     log.debug('  Removed %d - Go to III\n', xr);
     
     %% Step III: Exclusion

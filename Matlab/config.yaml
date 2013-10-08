@@ -44,16 +44,16 @@ perform_data_collection: 0
 # [ 0 .. 1 ]
 perform_classification: 1
 
+classifier_params:
+  - [ svm_scaling_factor, 0.1 ]
+  - [ num_features, 12 ]
+
 # Classifying 'weeks' (1) or 'households' (0).
 # Classifying households: majority of weeks determines label
 classification_type: 'households'
 
 # Path where to store classification results
 path_classification: 'results/classification/'
-
-classifier_params:
-  - [ svm_scaling_factor, 0.2 ]
-  - [ num_features, 12 ]
 
 # Optimization criterion (figure of merit)
 # NOTE: f_measure is only possible for two-class classification tasks
@@ -112,7 +112,7 @@ apriori_combinations:
 
 
 classes:
-#   - '@class_appliances'
+  - '@class_appliances'
 #   - '@class_bedrooms'
 #   - '@class_devices'
 #   - '@class_dink'
@@ -126,13 +126,14 @@ classes:
 #   - '@class_nokids'
 #   - '@class_old_house'
 #   - '@class_persons'
-   - '@class_retired'
+#   - '@class_retired'
 #   - '@class_singles'
 #   - '@class_socialclass'
+#   - '@class_waterheating'
 
 classifiers:
-#   - lda
+  - lda
 #   - knn
-  - mahal
-#  - svm
+#   - mahal
+#   - svm
 

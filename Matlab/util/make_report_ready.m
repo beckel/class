@@ -58,6 +58,11 @@ function varargout = make_report_ready(fig_h, varargin)
 						height = 13.5; 
 						linewidth = 1;
 						fontsize = 22;
+					elseif (strcmpi(value, 'roc_presentation'))
+						width = 20;
+						height = 20; 
+						linewidth = 2;
+						fontsize = 12;
 					elseif (strcmpi(value, 'subplot'))
 						width = 8.4;
 						height = 3.2;
