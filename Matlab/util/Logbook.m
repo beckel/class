@@ -20,13 +20,13 @@ classdef Logbook < handle
                 error('Only %d entries allowed in logbook\n');
             end
 
-            if obj.contains(array) == 1
-                error('Array already in logbook\n');
-                return;
-            else
-                tmp = sort(array)
+%             if obj.contains(array) == 1
+%                 error('Array already in logbook\n');
+%                 return;
+%             else
+                tmp = sort(array);
                 obj.entries{end+1} = [ tmp, zeros(1, obj.num_entries - length(array)) ];
-            end
+%             end
         end
         
         function ret = contains(obj, array)

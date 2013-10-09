@@ -19,6 +19,7 @@ function [sCR, sFSR] = sffs(sFS, figureOfMerit, num_features, log)
 % (c) 2010 S. Theodoridis, A. Pikrakis, K. Koutroumbas, D. Cavouras
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%
 % This file was modified as part of the project CLASS (https://github.com/beckel/class).
 % Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
 % Copyright: ETH Zurich, 2012
@@ -29,26 +30,29 @@ function [sCR, sFSR] = sffs(sFS, figureOfMerit, num_features, log)
 % * Fixed bug: (X_hat{k}=setdiff(X{k+1}, xr); must be before part III
 % * Added logkeeping to avoid endless loops
 % * Leave sets unsorted 
-% * Return n<=num_features features instead of num_features depending on C.
+% * Return n <= num_features features depending on C instead of num_features fixed.
+%%%%%
 
+%% Process input data and run SFS for k=2 in order to get started
 num_classes = length(sFS.classes);
 D = size(sFS.samples{1}, 1);
 k = 2;
-
 log.normal('Feature selection using SFFS - %d features\n', num_features);
-
-% Initialization
 exact_number = 1;
 [ sCR, sFSR ] = sfs(sFS, figureOfMerit, k, exact_number, log);
 for i=1:k
     C{i} = sFSR.f_opt(1:i);
     X{i} = sFSR.feat_best(1:i)';
 end
-logbook = Logbook(num_features);
 
+%% Initialize logbook to remember states already visited
+logbook = Logbook(num_features+1);
+logbook.add(X{k});
+
+%% Search for features
 while k <= num_features
     
-    %% Step I
+    %% Step I: Add feature that improves figure of merit most
     Ct = [];
     Y{D-k} = setdiff(1:D,X{k}, 'stable');
     for i = 1:length(Y{D-k})
@@ -58,16 +62,18 @@ while k <= num_features
     [the_C, ind] = max(Ct);
     the_x = Y{D-k}(ind);
     X{k+1} = [X{k} the_x];
+    logbook.add(X{k+1});
     log.debug('  Added %d - current set: ', the_x);
     log.write_comma_separated_list(X{k+1});
     log.debug(' - C: %f\n', the_C);
 
-    %% Step II:Test
+    %% Step II: Test if removal of single feature improves figure of merit
     Ct = [];
     for i = 1:length(X{k+1})
         t = setdiff(X{k+1}, X{k+1}(i), 'stable');
-        % check if this subset has already been tested
-        if logbook.contains(t) == 1
+        % Only remove feature if its removal does not lead to a state
+        % already visited
+        if logbook.contains(t) == 1 && i ~= length(X{k+1})
             Ct = [Ct, -1];
         else
             Ct = [Ct eval_algo(sFS, num_classes, t, figureOfMerit)];
@@ -75,27 +81,24 @@ while k <= num_features
     end
     [J,r] = max(Ct);
     xr = X{k+1}(r);
-    % check if (k+1)th feature is least significant compared to all other
-    % features, or if no new set has been found
-    if r == k+1 || J == -1
-        % if so: leave it in the set and continue with next element
+    % If (k+1)th feature is least significant compared to all others, 
+    % leave it in the set and continue with Step I.
+    if r == k+1
         C{k+1} = the_C;
         k = k+1;
-        if J == -1
-            log.debug('  Nothing to exclude without returning to previous set\n');
-        end
         continue;
     end
     
-    % if not: ??? why J < C{k}? Is this path ever reached?
-    % isn't it endless loop if 'continue' is done?
+    % If (k+1)th feature is NOT least significant but removal doesn't
+    % improve figure of merit: Do not remove feature, continue with Step I.
     if r ~= k+1 & J < C{k}
-        log.debug('  Removing feature %d does not improve C{k} - continue.', xr);
+        log.debug('  Removing feature %d does not improve C{k} - continue.\n', xr);
+        k = k+1;
         continue;
     end
     
-    % exclude feature from set and continue with step I (don't go into step
-    % III as no more features should be removed)
+    % If only two features are left, exclude feature from set and continue 
+    % with step I
     if k==2
         X{k}=setdiff(X{k+1}, xr, 'stable');
         C{k}=J;
@@ -104,36 +107,41 @@ while k <= num_features
         log.debug(' - C: %f\n', J);
         continue;
     end
-    X_hat{k}=setdiff(X{k+1}, xr, 'stable');
-    logbook.add(X_hat{k});
-    log.debug('  Removed %d - Go to III\n', xr);
+    log.debug('  Removed %d in step II - Go to Step III\n', xr);
     
-    %% Step III: Exclusion
+    %% Step III: Exclusion of more features (backtracking)
+    X_hat{k}=setdiff(X{k+1}, xr, 'stable');
+    % logbook.add(X_hat{k});
     flag=1;
     while flag
-        % find least significant feature in X
+        % Remove least significant feature in X (unless its removal leads
+        % to a state that has already been visited)
         Ct=[];
         for i=1:length(X_hat{k})
             t=setdiff(X_hat{k}, X_hat{k}(i), 'stable');
-            Ct = [Ct eval_algo(sFS, num_classes, t, figureOfMerit)];
+            if logbook.contains(t) == 1
+                Ct = [Ct, -1];
+            else
+                Ct = [Ct eval_algo(sFS, num_classes, t, figureOfMerit)];
+            end
         end
-        % J: fm when removing least significant feature
-        % xs: least significant feature
         [J,s]=max(Ct);
         xs=X_hat{k}(s);
         
-        % not worth it? go back to step I
+        % If its removal does not improve figure of merit, go back to 
+        % Step I.
         if J<C{k-1}
             X{k}=X_hat{k};
             C{k} = eval_algo(sFS, num_classes, X{k}, figureOfMerit);
             flag=0;
-            log.debug('Current set: ');
+            log.debug('Back to step I - Current set: ');
             log.write_comma_separated_list(X{k});
             log.debug(' - C: %f\n', C{k});
             break;
         end
         
-        % remove feature
+        % If its removal does improve figure of merit, remove feature and
+        % continue with backtracking.
         X_hat{k-1}=setdiff(X_hat{k},xs, 'stable');
         log.debug('  Removed %d - current set: ', xs);
         log.write_comma_separated_list(X_hat{k-1});
@@ -142,22 +150,20 @@ while k <= num_features
             X{k} = X_hat{k};
             C{k} = J;
             flag = 0;
-            tmp = X{k};
-            log.debug(' - C: %f\n', J);
+            log.debug(' - C: %f', J);
         end
-        log.debug(' - remain in III\n');
+        log.debug(' - Remain in III\n');
     end
     if flag==0
         continue;
     end
 end
 
-% wtf?
 if k>num_features
     k=k-1;
 end
 
-% create optimal feature set
+%% Output: Best feature set found
 C{1} = 0;
 [~, n_opt] = max(cell2mat(C));
 feat_best = X{n_opt};
@@ -171,4 +177,3 @@ sFSR.f_opt = cell2mat(C);
 sFSR.feat_best = feat_best';
 
 log.normal('Done with SFFS\n');
-
