@@ -112,12 +112,12 @@ apriori_combinations:
 
 
 classes:
-  - '@class_appliances'
+#   - '@class_appliances'
 #   - '@class_bedrooms'
 #   - '@class_devices'
 #   - '@class_dink'
 #   - '@class_ecooking'
-#   - '@class_eheating'
+  - '@class_eheating'
 #   - '@class_employment'
 #   - '@class_families'
 #   - '@class_floorarea'
@@ -132,8 +132,9 @@ classes:
 #   - '@class_waterheating'
 
 classifiers:
-  - lda
-#   - knn
+#   - lda
+  - knn
 #   - mahal
 #   - svm
+#   - adaboost
 

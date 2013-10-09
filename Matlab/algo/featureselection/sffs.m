@@ -35,7 +35,11 @@ function [sCR, sFSR] = sffs(sFS, figureOfMerit, num_features, log)
 
 %% Process input data and run SFS for k=2 in order to get started
 num_classes = length(sFS.classes);
-D = size(sFS.samples{1}, 1);
+
+% D = size(sFS.samples{1}, 1);
+% TODO: fix
+D = 8;
+
 k = 2;
 log.normal('Feature selection using SFFS - %d features\n', num_features);
 exact_number = 1;
@@ -52,6 +56,9 @@ logbook.add(X{k});
 %% Search for features
 while k <= num_features
     
+    % log state as "visited"
+    logbook.add(X{k});
+    
     %% Step I: Add feature that improves figure of merit most
     Ct = [];
     Y{D-k} = setdiff(1:D,X{k}, 'stable');
@@ -62,7 +69,6 @@ while k <= num_features
     [the_C, ind] = max(Ct);
     the_x = Y{D-k}(ind);
     X{k+1} = [X{k} the_x];
-    logbook.add(X{k+1});
     log.debug('  Added %d - current set: ', the_x);
     log.write_comma_separated_list(X{k+1});
     log.debug(' - C: %f\n', the_C);
@@ -79,6 +85,7 @@ while k <= num_features
             Ct = [Ct eval_algo(sFS, num_classes, t, figureOfMerit)];
         end
     end
+    fprintf('In step II: Ct is [ %s ]\n', num2str(Ct));
     [J,r] = max(Ct);
     xr = X{k+1}(r);
     % If (k+1)th feature is least significant compared to all others, 
