@@ -37,9 +37,7 @@ function [sCR, sFSR] = sffs(sFS, figureOfMerit, num_features, log)
 num_classes = length(sFS.classes);
 
 % Number of features
-% D = size(sFS.samples{1}, 1);
-% TODO: fix
-D = 8;
+D = size(sFS.samples{1}, 1);
 
 % Delta in the figure of merit that is needed to remove a feature instead
 % of adding the next one
@@ -92,7 +90,6 @@ while k <= num_features
         end
     end
     Ct(end) = Ct(end) + delta;
-    fprintf('In step II: Ct is [ %s ]\n', num2str(Ct));
     [J,r] = max(Ct);
     xr = X{k+1}(r);
     % If (k+1)th feature is least significant compared to all others, 
