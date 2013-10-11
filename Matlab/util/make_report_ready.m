@@ -62,7 +62,7 @@ function varargout = make_report_ready(fig_h, varargin)
 						width = 20;
 						height = 20; 
 						linewidth = 2;
-						fontsize = 12;
+						fontsize = 16;
 					elseif (strcmpi(value, 'subplot'))
 						width = 8.4;
 						height = 3.2;

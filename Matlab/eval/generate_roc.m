@@ -2,7 +2,7 @@
 % Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
-function [ ROC ] = generate_roc( sCR )
+function [ ROC ] = generate_roc( sCR, basis )
 
     distances = [];
     for n=1:length(sCR)
@@ -21,12 +21,17 @@ function [ ROC ] = generate_roc( sCR )
     R_x = [];
     R_y = [];
     dist_prev = -Inf;
-    P = sum(samples(:,3) == 1);
-    N = sum(samples(:,3) == 2);
     
-    num_samples = size(samples,1);
-    for i = 1:num_samples
+    P = sum(samples(:,3) == basis);
+    N = sum(samples(:,3) ~= basis);
         
+    num_samples = size(samples,1);
+    for j = 1:num_samples
+        if basis == 1
+            i = j;
+        else
+            i = num_samples-j+1;
+        end
         % this restriction is needed to avoid that samples with the same
         % distance are interpreted based on their in the data set.
         if samples(i,2) ~= dist_prev
@@ -36,7 +41,7 @@ function [ ROC ] = generate_roc( sCR )
             dist_prev = samples(i,2);
         end
         
-        if samples(i,3) == 1
+        if samples(i,3) == basis
             TP = TP + 1;
         else
             FP = FP + 1;

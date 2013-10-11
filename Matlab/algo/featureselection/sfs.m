@@ -6,7 +6,7 @@
 function [sCR, sFSR] = sfs(sFS, figureOfMerit, num_features, exact_number, log)
 
     log.normal('Feature selection using SFS - %d features\n', num_features);
-
+    
     num_classes = length(sFS.classes);
 	D = size(sFS.samples{1}, 1);
 

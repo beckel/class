@@ -7,6 +7,7 @@ function [sCR, f] = nfold_cross_validation(sCV, figureOfMerit)
 	%% Prepare indeces for S partitions	
 	S = sCV.nfold;
 	C = length(sCV.classes);
+
     households = sCV.households;
     unique_households = {};
     for c = 1:C

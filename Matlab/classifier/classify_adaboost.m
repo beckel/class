@@ -25,7 +25,7 @@ function [t, distance] = classify_adaboost(sC)
     end
 
     test_set = sC.test_set';
-    t = predict(ens, test_set);
+    [t, score] = predict(ens, test_set);
 
 %     distance = class_probabilities(:,1);
 

@@ -14,24 +14,24 @@ dataset: 'cer_ireland'
 
 # Which weeks should be used for the analysis?
 weeks: 
-  - 14
-  - 15
-  - 16
-  - 17
-  - 18
-  - 19
-  - 20
-  - 21
-  - 22
-  - 25
+#  - 14
+#  - 15
+#  - 16
+#  - 17
+#  - 18
+#  - 19
+#  - 20
+#  - 21
+#  - 22
+#  - 25
   - 26
-  - 27
-  - 28
-  - 29
-  - 30
-  - 31
-  - 32
-  - 33
+#  - 27
+#  - 28
+#  - 29
+#  - 30
+#  - 31
+#  - 32
+#  - 33
   
 # Some features require a reference to other weeks (e.g., during summer/winter).
 reference_weeks:
@@ -117,7 +117,7 @@ classes:
 #   - '@class_devices'
 #   - '@class_dink'
 #   - '@class_ecooking'
-  - '@class_eheating'
+#   - '@class_eheating'
 #   - '@class_employment'
 #   - '@class_families'
 #   - '@class_floorarea'
@@ -127,14 +127,14 @@ classes:
 #   - '@class_old_house'
 #   - '@class_persons'
 #   - '@class_retired'
-#   - '@class_singles'
+  - '@class_singles'
 #   - '@class_socialclass'
 #   - '@class_waterheating'
 
 classifiers:
 #   - lda
-  - knn
+#   - knn
 #   - mahal
-#   - svm
-#   - adaboost
+  - svm
+#  - adaboost
 

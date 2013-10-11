@@ -22,19 +22,19 @@ function [t, distance] = classify_svm(sC)
         
     options = '';
  	options = [options, ' -h 1']; % use no shrinking heuristic
-%  	options = [options, ' -t 2']; % kernel type
+%   	options = [options, ' -t 2']; % kernel type
     options = [options, ' -b 1']; % output probabilities
 % 	options = [options, ' -m 500']; % memory size
-%   options = [options, ' -s 0']; % svm type
+%     options = [options, ' -s 0']; % svm type
     options = [options, ' -q']; % quiet mode
     
     num_samples = length(sC.training_truth);
-    s = RandStream('mcg16807','Seed',0);
+    s = RandStream('mcg16807', 'Seed', 0);
     RandStream.setGlobalStream(s); 
     rand_inds = randperm(num_samples, uint32(num_samples*svm_scaling_factor));
     
-    training_truth = sC.training_truth(rand_inds)';
-    training_set = sC.training_set(rand_inds)';
+    training_truth = sC.training_truth(:, rand_inds)';
+    training_set = sC.training_set(:, rand_inds)';
 
     model = svmtrain(training_truth, training_set, options);
     
