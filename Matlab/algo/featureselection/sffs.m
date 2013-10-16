@@ -49,7 +49,7 @@ log.normal('Feature selection using SFFS - %d features\n', num_features);
 exact_number = 1;
 [ sCR, sFSR ] = sfs(sFS, figureOfMerit, k, exact_number, log);
 for i=1:k
-    C{i} = sFSR.f_opt(1:i);
+    C{i} = sFSR.f_opt(i);
     X{i} = sFSR.feat_best(1:i)';
 end
 
@@ -175,7 +175,7 @@ if k>num_features
 end
 
 %% Output: Best feature set found
-C{1} = 0;
+% C{1} = 0;
 [~, n_opt] = max(cell2mat(C));
 feat_best = X{n_opt};
 sCV = sFS;
