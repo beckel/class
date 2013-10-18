@@ -5,14 +5,21 @@
 
 % daily maximum - week average
 function feature = max_cons_avg(consumption)
-	if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        feature = mean(max_cons(consumption));
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            tmp = cons_max(trace);
+            weekly_maximum_avg(i) = mean(tmp);
+        end
+        
+        feature = mean(weekly_maximum_avg);
     end
 end
-   

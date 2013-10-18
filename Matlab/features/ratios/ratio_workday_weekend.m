@@ -5,14 +5,23 @@
 
 % workday consumption / week-end consumption
 function feature = ratio_workday_weekend(consumption)
-    if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        feature = cons_weekday_avg(consumption) / cons_weekend_avg(consumption);    
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            weekday = cons_weekday(trace);
+            weekend = cons_weekend(trace);
+            weekly_averages(i) = weekday / weekend;
+        end
+        
+        feature = mean(weekly_averages);
     end
 end
    

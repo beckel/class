@@ -29,12 +29,14 @@ addpath('features/statistical');
 addpath('features/temporal');
 addpath('features/distribution');
 addpath('features/multi_week');
+addpath('features/util');
 
 addpath('featuresets');
 
 addpath('projects');
 
 addpath('util');
+addpath('util/export_fig');
 
 addpath('lib');
 addpath('lib/YAMLMatlab_0.4.3');

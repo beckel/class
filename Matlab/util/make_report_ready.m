@@ -79,6 +79,11 @@ function varargout = make_report_ready(fig_h, varargin)
 					elseif (strcmpi(value, 'wide'))
 						width = 19.8;
 						height = 7.2;
+                    elseif (strcmpi(value, 'features'))
+                        width = 20;
+                        height = 20;
+                        linewidth = 1.5;
+                        fontsize = 14;
 					elseif (isvector(value) && (length(value) == 2))
 						width = value(1);
 						height = value(2);

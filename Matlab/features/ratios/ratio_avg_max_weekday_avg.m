@@ -5,15 +5,24 @@
 
 % average consumption / maximum consumption - weekday average
 function feature = ratio_avg_max_weekday_avg(consumption)
-    if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        tmp = ratio_avg_max(consumption);
-        feature = mean(tmp(1:5));
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            average = cons_wholeday(trace);
+            maximum = cons_max(trace);
+            tmp = average ./ maximum;
+            weekly_averages(i) = mean(tmp(1:5));
+        end
+        
+        feature = mean(weekly_averages);
     end
 end
    

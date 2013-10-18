@@ -5,14 +5,21 @@
 
 % average consumption week-end (Sa 0 am - Su 12 pm) - week-end average
 function feature = cons_weekend_avg(consumption)
-	if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        feature = mean(cons_weekend(consumption));
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            weekly_averages(i) = cons_weekend(trace);
+        end
+        
+        feature = mean(weekly_averages);
     end
 end
    

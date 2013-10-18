@@ -7,9 +7,8 @@ function data_selection(Config, class_func, feat_func)
 
 fprintf('\nCollect household properties: %s\n\n', class_func('name'));
 
-path = [ Config.path_classification, num2str(Config.weeks{1}), '/', Config.feature_set, '/'];
-traces_per_household = Config.weeks;
-num_traces_per_household = length(traces_per_household);
+weeks = Config.weeks;
+path = [ Config.path_classification, num2str(weeks{1}), '/', Config.feature_set, '/'];
 reference_traces = Config.reference_weeks;
 
 % data set specific commands
@@ -73,22 +72,20 @@ elseif strcmp(Config.dataset, 'issm')
 end
 
 %% Generate Samples
-
 samples = cell(1,C);
 households = cell(1, C);
 truth = cell(1,C);
 
 for c = 1:C
-    num_households = length(ids{c});
-    N = length(ids{c}) * num_traces_per_household;
+    N = length(ids{c});
     
 	samples{c} = zeros(compose_featureset('dim', feat_set), N);
     households{c} = zeros(1, N);
 	truth{c} = ones(1,N) * c;
 
 	avg_time = 0;
-    itemsToDelete = [];
-    for i = 1:num_households
+    del = []
+    for i = 1:N
 		tic;
 
 		id = ids{c}(i);
@@ -110,31 +107,40 @@ for c = 1:C
             end
             reference_avg = reference_avg ./ (j - length(weeks_to_delete));
         end
-        
-        for j = 1:num_traces_per_household
-            idx = (i-1)*num_traces_per_household + j;
-            week = traces_per_household{j};
+
+        weekly_traces = {};
+        for j = 1:length(weeks)
+            week = weeks{j};
             % discard trace if it contains more than 4 zeros
             weekly_trace = Consumer.consumption(week, :);
-            if sum(weekly_trace == 0) > 4
-                itemsToDelete(end+1) = idx;
+            if sum(weekly_trace == 0) > 10
                 continue;
             end
-            
-            % add summer consumption as reference
-            samples{c}(:,idx) = compose_featureset(weekly_trace', feat_set, reference_avg);
-            households{c}(:,idx) = id;
-        
+            weekly_traces{end+1} = weekly_trace;
         end
+        
+        % remove household if no trace is available
+        if isempty(weekly_traces)
+            del = [ del, i ];
+            continue;
+        end
+            
+        % compose features (if reference_avg is not set: ignore)
+        consumption.weekly_traces = weekly_traces; 
+        consumption.reference = reference_avg;
+        consumption.granularity = Config.granularity;
+        consumption.id = id;
+        samples{c}(:,i) = compose_featureset(consumption, feat_set);
+        households{c}(:,i) = id;
         
 		t = toc;
 		avg_time = (avg_time * (i-1) + t * 1) / i;
-		eta = avg_time * (num_households - i);
-		fprintf('Progress: %i%% (%i of %i). ETA: %s\n', round(i*100/num_households), i, num_households, seconds2str(eta));
+		eta = avg_time * (N - i);
+		fprintf('Progress: %i%% (%i of %i). ETA: %s\n', round(i*100/N), i, N, seconds2str(eta));
     end
-    samples{c}(:,itemsToDelete) = [];
-    households{c}(:, itemsToDelete) = [];
-    truth{c}(:,itemsToDelete) = [];
+    samples{c}(:, del) = [];
+    households{c}(:, del) = [];
+    truth{c}(:, del) = [];
 end
 
 sD.classes = classes;

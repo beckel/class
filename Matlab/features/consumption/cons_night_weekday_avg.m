@@ -5,15 +5,22 @@
 
 % average consumption during night (01am - 5am) - weekday average
 function feature = cons_night_weekday_avg(consumption)
-	if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        tmp = cons_night(consumption);
-        feature = mean(tmp(1:5));
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            tmp = cons_night(trace);
+            weekly_averages(i) = mean(tmp(1:5));
+        end
+        
+        feature = mean(weekly_averages);
     end
 end
    

@@ -3,17 +3,25 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-% average consumption during day (06am - 10pm) - weekday average
+% average consumption during day (06am - 10pm) - total average
 function feature = cons_day_avg(consumption)
-	if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        tmp = cons_day(consumption);
-        feature = mean(tmp(1:5));
+    
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            tmp = cons_day(trace);
+            weekly_averages(i) = mean(tmp(1:7));
+        end
+        
+        feature = mean(weekly_averages);
     end
 end
    

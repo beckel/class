@@ -16,5 +16,6 @@ files = dir('data/cer_ireland/weekly_traces/*.mat');
 for file = files'
     load(file.name);
     filename = file.name(1:4);
-    csvwrite([dest_dir, filename, '.csv'], Consumer.timeline);
+%     csvwrite([dest_dir, filename, '.csv'], Consumer.timeline(:,1));
+    dlmwrite([dest_dir, filename, '.csv'], Consumer.timeline(:,1), 'delimiter', ',', 'precision', 6); 
 end

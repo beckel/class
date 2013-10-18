@@ -5,14 +5,22 @@
 
 % daily minimum - week average
 function feature = min_cons_avg(consumption)
-	if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        feature = mean(min_cons(consumption));
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            tmp = cons_min(trace);
+            weekly_minimum_avg(i) = mean(tmp);
+        end
+        
+        feature = mean(weekly_minimum_avg);
     end
 end
    

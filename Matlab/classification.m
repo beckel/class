@@ -30,6 +30,7 @@ for i = 1:length(sCV.samples)
     samples = sCV.samples{i};
     idx = (sum(isnan(samples)) + sum(isinf(samples))) == 0;
     sCV.samples{i} = samples(:,idx);
+    sCV.households{i} = sCV.households{i}(:,idx);
     sCV.truth{i} = sCV.truth{i}(:,idx);
 end 
 sCV.nfold = 4;

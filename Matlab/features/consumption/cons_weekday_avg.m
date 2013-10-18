@@ -5,14 +5,21 @@
 
 % average consumption week-day (Mo 0 am - Fr 12 pm) - weekday average
 function feature = cons_weekday_avg(consumption)
-	if strcmp(consumption, 'reference')
-        feature = 0;
-    elseif (strcmp(consumption, 'dim'))
+	if strcmp(consumption, 'dim') == 1
 		feature = 1;
-    elseif (strcmp(consumption, 'input_dim'))
-        feature = 48*7;
     else
-        feature = mean(cons_weekday(consumption));
+        if consumption.granularity ~= 30
+            error('30-minute granularity required');
+        end
+        
+        num_weeks = length(consumption.weekly_traces);
+        weekly_averages = zeros(1,num_weeks);
+        for i=1:num_weeks
+            trace = consumption.weekly_traces{i};
+            weekly_averages(i) = cons_weekday(trace);
+        end
+        
+        feature = mean(weekly_averages);
     end
 end
    
