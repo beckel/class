@@ -3,11 +3,9 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-function [sCR, sFSR] = sfs(sFS, figureOfMerit, num_features, exact_number, log)
+function [sCR, sFSR] = sfs(sFS, figureOfMerit, log)
 
-    log.normal('Feature selection using SFS - %d features\n', num_features);
-    
-    num_classes = length(sFS.classes);
+   num_classes = length(sFS.classes);
 	D = size(sFS.samples{1}, 1);
 
     if exist('num_features', 'var') == 0
@@ -17,7 +15,9 @@ function [sCR, sFSR] = sfs(sFS, figureOfMerit, num_features, exact_number, log)
     if exist('exact_number', 'var') == 0
         exact_number = 0;
     end
-        
+
+    log.normal('Feature selection using SFS - %d features\n', num_features);
+                    
 	feat_opt = zeros(num_features,num_features);
 	f_opt = zeros(1,num_features);
 	for d = 1:num_features
