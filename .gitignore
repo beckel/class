@@ -6,7 +6,12 @@ Matlab/data/issm/weekly_traces/
 Matlab/data/cer_ireland/weekly_traces/
 Matlab/lsf*
 .DS_Store
-.*
 Matlab/run_on_brutus
 Matlab/data/cer_ireland/cer_db_get_connection.m
-
+Matlab/projects/+journal/
+Matlab/projects/+ireland/
+Matlab/projects/+issm/
+Matlab/tmp/
+Matlab/tools/
+Matlab/clustering/
+ranking/
