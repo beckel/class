@@ -1,0 +1,23 @@
+Classes:
+--------
+	1:	AB
+	2:	C
+	3:	DE
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	20	18	15	5	10	1	3	19	17	12	14	9
+
+Correct Classification: 43.59%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	19	14	20	17	12	22	16	4	10	5	3	2	1	18	6	13
+
+Correct Classification: 50.02%

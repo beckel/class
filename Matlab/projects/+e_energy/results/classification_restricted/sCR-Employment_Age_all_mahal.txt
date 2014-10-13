@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Employed
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+Selected Features:
+--------------
+	18	12	11	7	8	13	3	4
+
+Correct Classification: 68.61%

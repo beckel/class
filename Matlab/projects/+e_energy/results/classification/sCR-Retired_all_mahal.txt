@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Retired
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+Selected Features:
+--------------
+	18	8	7	3	12	11	2	1	6	13	4	22
+
+Correct Classification: 70.85%

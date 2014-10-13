@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	e-Heating
+	2:	Other
+
+Classifier:
+-------------
+	svm
+
+Selected Features:
+--------------
+	12	16	19	22	3	21	14	4	1	17	13	6
+
+Correct Classification: 54.50%

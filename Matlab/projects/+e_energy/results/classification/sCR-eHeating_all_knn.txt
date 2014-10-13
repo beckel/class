@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	e-Heating
+	2:	Other
+
+Classifier:
+-------------
+	knn
+
+Selected Features:
+--------------
+	3	10	13	1	4	6
+
+Correct Classification: 53.32%

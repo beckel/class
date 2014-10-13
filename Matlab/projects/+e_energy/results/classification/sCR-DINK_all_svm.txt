@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	DINK
+	2:	Other
+
+Classifier:
+-------------
+	svm
+
+Selected Features:
+--------------
+	1	2	3	4	5	11	14	19	18	6	10	13
+
+Correct Classification: 68.38%

@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	lda
+
+Selected Features:
+--------------
+	14	10	7	20	3	13	1	8	15	9	22	12	2	16	17
+
+Correct Classification: 75.51%

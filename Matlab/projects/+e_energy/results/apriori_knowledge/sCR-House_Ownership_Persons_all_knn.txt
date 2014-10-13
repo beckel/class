@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	1-2
+	2:	3+
+
+Classifier:
+-------------
+	knn
+
+A Priori Knowledge: Rent:
+Selected Features:
+--------------
+	7	18	14	20	22	21	4	6
+
+Correct Classification: 77.64%
+
+A Priori Knowledge: Own:
+Selected Features:
+--------------
+	8	19	17	22	14	3	4	2
+
+Correct Classification: 70.70%

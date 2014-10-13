@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	lda
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	14	2	20	19	17	12	22	6	5
+
+Correct Classification: 76.28%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	12	10	15	11	6	4	20	22	8	19	21	7
+
+Correct Classification: 81.77%

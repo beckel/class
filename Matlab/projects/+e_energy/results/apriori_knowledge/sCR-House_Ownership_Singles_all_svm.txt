@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	svm
+
+A Priori Knowledge: Rent:
+Selected Features:
+--------------
+	14	2	12	18	13	7	21	3
+
+Correct Classification: 79.45%
+
+A Priori Knowledge: Own:
+Selected Features:
+--------------
+	8	19	4	7	1
+
+Correct Classification: 81.69%

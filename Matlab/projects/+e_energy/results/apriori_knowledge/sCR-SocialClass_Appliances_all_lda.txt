@@ -1,0 +1,30 @@
+Classes:
+--------
+	1:	Low
+	2:	Mid
+	3:	High
+
+Classifier:
+-------------
+	lda
+
+A Priori Knowledge: AB:
+Selected Features:
+--------------
+	6	2	19	7	13	18	3	16	14	10	17	21	15	22	12	1	9
+
+Correct Classification: 48.16%
+
+A Priori Knowledge: C:
+Selected Features:
+--------------
+	10	6	11	14	22	12	21	3	19	8	17	2
+
+Correct Classification: 50.00%
+
+A Priori Knowledge: DE:
+Selected Features:
+--------------
+	6	10	19	11	22	7
+
+Correct Classification: 47.02%

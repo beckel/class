@@ -1,0 +1,36 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	svm
+
+A Priori Knowledge: Semi-Detatched:
+Selected Features:
+--------------
+	8	19	7	17	6	20	4	12	5	13	18
+
+Correct Classification: 82.51%
+
+A Priori Knowledge: Detatched:
+Selected Features:
+--------------
+	8	13	15	20	12	1	4
+
+Correct Classification: 84.91%
+
+A Priori Knowledge: Terraced:
+Selected Features:
+--------------
+	8	2	17	13	1	5	12	16	9	6	20	4	18	3
+
+Correct Classification: 74.80%
+
+A Priori Knowledge: Bungalow:
+Selected Features:
+--------------
+	15	6	8	19	5	2	4
+
+Correct Classification: 81.61%

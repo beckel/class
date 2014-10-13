@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	e-Cooking
+	2:	Other
+
+Classifier:
+-------------
+	svm
+
+Selected Features:
+--------------
+	12	15	14	5	18	1	2	19	20	22	3	6
+
+Correct Classification: 72.75%

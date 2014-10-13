@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	OldHouses
+	2:	Other
+
+Classifier:
+-------------
+	svm
+
+Selected Features:
+--------------
+	1	2	3	4	5	8	16	18	19	14	15
+
+Correct Classification: 81.56%

@@ -1,0 +1,15 @@
+Classes:
+--------
+	1:	Low
+	2:	Mid
+	3:	High
+
+Classifier:
+-------------
+	mahal
+
+Selected Features:
+--------------
+	6	12	21	14
+
+Correct Classification: 53.66%

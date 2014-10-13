@@ -1,0 +1,15 @@
+Classes:
+--------
+	1:	Small
+	2:	Middle
+	3:	Big
+
+Classifier:
+-------------
+	knn
+
+Selected Features:
+--------------
+	6	10	13	7
+
+Correct Classification: 59.73%

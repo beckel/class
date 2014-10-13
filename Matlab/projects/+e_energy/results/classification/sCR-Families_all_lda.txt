@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Family
+	2:	Other
+
+Classifier:
+-------------
+	lda
+
+Selected Features:
+--------------
+	7	6	5	4	21	11	9	8	14	17	16	15	1	20	18
+
+Correct Classification: 71.11%

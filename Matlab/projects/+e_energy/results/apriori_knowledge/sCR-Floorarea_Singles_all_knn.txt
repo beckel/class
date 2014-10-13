@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	knn
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	8	4	15	16	12	13	17	2	21	20	6	5	3	1
+
+Correct Classification: 84.40%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	8	13	19	3	14	9	1	15	7	17	2	18	4
+
+Correct Classification: 90.98%

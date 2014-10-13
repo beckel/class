@@ -1,0 +1,15 @@
+Classes:
+--------
+	1:	AB
+	2:	C
+	3:	DE
+
+Classifier:
+-------------
+	svm
+
+Selected Features:
+--------------
+	18	12	3	17	5	22	7	19	13	4	15
+
+Correct Classification: 54.49%

@@ -1,0 +1,36 @@
+Classes:
+--------
+	1:	1-2
+	2:	3+
+
+Classifier:
+-------------
+	lda
+
+A Priori Knowledge: Semi-Detatched:
+Selected Features:
+--------------
+	14	17	18	2	22	8
+
+Correct Classification: 73.64%
+
+A Priori Knowledge: Detatched:
+Selected Features:
+--------------
+	8	22	10	1	18	13	19	15	6	14	11
+
+Correct Classification: 72.57%
+
+A Priori Knowledge: Terraced:
+Selected Features:
+--------------
+	8	2	17	14	11	6	9	16	1
+
+Correct Classification: 76.03%
+
+A Priori Knowledge: Bungalow:
+Selected Features:
+--------------
+	8	2	4	20	17	12	1	21	13	18	19	6
+
+Correct Classification: 72.37%

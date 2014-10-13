@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Family
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+Selected Features:
+--------------
+	22	15	21	10	2	18	19	12	16
+
+Correct Classification: 76.66%

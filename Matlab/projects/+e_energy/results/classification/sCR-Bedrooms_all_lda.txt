@@ -1,0 +1,16 @@
+Classes:
+--------
+	1:	1-2
+	2:	3
+	3:	4
+	4:	5+
+
+Classifier:
+-------------
+	lda
+
+Selected Features:
+--------------
+	6	10	20	4	21	11	3	1	9	19	18	17	15	5	8
+
+Correct Classification: 37.12%

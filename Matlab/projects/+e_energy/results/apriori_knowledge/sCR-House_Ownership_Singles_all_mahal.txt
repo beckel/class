@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: Rent:
+Selected Features:
+--------------
+	10	1	7	22	4	20	17	12	11	14
+
+Correct Classification: 74.89%
+
+A Priori Knowledge: Own:
+Selected Features:
+--------------
+	12	14	8	5	6	1	17	2
+
+Correct Classification: 77.10%

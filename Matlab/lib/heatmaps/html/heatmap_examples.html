@@ -1,0 +1,294 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Heatmap Examples</title><meta name="generator" content="MATLAB 7.13"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2011-11-18"><meta name="DC.source" content="heatmap_examples.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1>Heatmap Examples</h1><!--introduction--><p>This scripts demonstrates the capabilities of the <i>heatmap</i> visualization function.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Load Data for Visualization</a></li><li><a href="#2">Simple Heatmap</a></li><li><a href="#3">Axes Ticks &amp; Labels</a></li><li><a href="#7">Heatmap Text Labels</a></li><li><a href="#11">Zoom, Pan &amp; Data Cursors</a></li><li><a href="#12">Changing the Colormap</a></li><li><a href="#16">Multiple Heatmaps on a Figure</a></li><li><a href="#17">Colorbar</a></li><li><a href="#19">Grid Lines</a></li></ul></div><h2>Load Data for Visualization<a name="1"></a></h2><p>Import data set to visualize. The data set contains a matrix of electricity price differences between locations in New England.</p><pre class="codeinput">load <span class="string">heatmapData</span>
+</pre><h2>Simple Heatmap<a name="2"></a></h2><p>Generate heatmap only with no labels</p><pre class="codeinput">clf
+heatmap(spreads_small);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_01.png" alt=""> <h2>Axes Ticks &amp; Labels<a name="3"></a></h2><p>The heatmap above can be made a lot more useful with labels on the columns and rows. We can do this with two more inputs for x and y labels. The labels can be numeric or cell arrays of strings</p><pre class="codeinput">clf
+heatmap(spreads_small, 1:15, labels_small);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_02.png" alt=""> <p>Labels on the x-axis can be rotated to prevent overlap</p><pre class="codeinput">clf
+heatmap(spreads_small, labels_small, labels_small, [], <span class="string">'TickAngle'</span>, 45);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_03.png" alt=""> <p>By default, for larger heatmaps, not all ticks are shown. This can be forced with the <i>ShowAllTicks</i> option.</p><pre class="codeinput">clf
+heatmap(spreads_small, labels_small, labels_small, [], <span class="string">'TickAngle'</span>, 45,<span class="keyword">...</span>
+        <span class="string">'ShowAllTicks'</span>, true);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_04.png" alt=""> <p>The font size of the ticks can also be controlled with the <i>TickFontSize</i> option. This can help when trying to fit many tick labels on a heatmap.</p><pre class="codeinput">clf
+heatmap(spreads, labels, labels, [], <span class="string">'TickAngle'</span>, 45,<span class="keyword">...</span>
+        <span class="string">'ShowAllTicks'</span>, true, <span class="string">'TickFontSize'</span>, 6);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_05.png" alt=""> <h2>Heatmap Text Labels<a name="7"></a></h2><p>The heatmap image can be overlaid with text strings to either make the heatmap more descriptive or overlay another data set. The text labels can either be just turned on, turned on with a specific format or specified as another numeric matrix or cell array of strings</p><p>Turn on text labels with a format $xx.xx. See the documentation of <i>sprintf</i> for more information on format strings</p><pre class="codeinput">clf
+heatmap(spreads_small, labels_small, labels_small, <span class="string">'$%0.2f'</span>, <span class="string">'TickAngle'</span>, 45);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_06.png" alt=""> <p>A completely different matrix of data can be shown as text labels on top of the original heatmap, enabling you to overlay another dataset</p><pre class="codeinput"><span class="comment">% Convert matrix c_small into a cell array of formatted strings</span>
+clabel = arrayfun(@(x){sprintf(<span class="string">'%0.2f'</span>,x)}, c_small);
+
+clf
+heatmap(spreads_small, labels_small, labels_small, clabel, <span class="string">'TickAngle'</span>, 45);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_07.png" alt=""> <p>Properties of text labels include <i>FontSize</i> and <i>TextColor</i>. <i>TextColor</i> can also be specified as a string 'xor' in which case a color will automatically be chosen for each label to contrast with the color on the image.</p><pre class="codeinput">clf
+heatmap(spreads_small, labels_small, labels_small, <span class="string">'$%0.2f'</span>, <span class="keyword">...</span>
+        <span class="string">'TickAngle'</span>, 45, <span class="string">'FontSize'</span>, 6, <span class="string">'TextColor'</span>, <span class="string">'w'</span>);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_08.png" alt=""> <h2>Zoom, Pan &amp; Data Cursors<a name="11"></a></h2><p>Heatmaps generated with <i>heatmap</i> are interactive, in that you can zoom and pan to explore the visualization. The tick labels will automatically update in response to zoom and pan events. Data cursors are also supported. The text shown in the data cursor is derived from the text labels used to display the data on the heatmap image.</p><h2>Changing the Colormap<a name="12"></a></h2><p>Heatmaps, by default, use colormap of the figure in which they are created. So changing the figure colormap will change that of the heatmap</p><pre class="codeinput">clf
+
+heatmap(spreads);
+snapnow
+
+colormap <span class="string">cool</span>
+snapnow
+</pre><img vspace="5" hspace="5" src="heatmap_examples_09.png" alt=""> <img vspace="5" hspace="5" src="heatmap_examples_10.png" alt=""> <p><i>heatmap</i> includes two custom colormaps. The colormap <i>money</i> displays values of 0 as white and positive and negative values as shades of green or red. The colormap <i>red</i> displays values of 0 as white and positive values as different shades of red. You can also use your own colormaps with the <i>Colormap</i> option</p><pre class="codeinput">clf
+heatmap(spreads_small, [], [], <span class="string">'%0.2f'</span>, <span class="string">'Colormap'</span>, <span class="string">'money'</span>, <span class="keyword">...</span>
+        <span class="string">'Colorbar'</span>, true);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_11.png" alt=""> <p>The option <i>ColorLevels</i> lets you increase or decrease the number of distinct colors in the colormap.</p><pre class="codeinput">clf
+heatmap(spreads_small, [], [], <span class="string">'%0.2f'</span>, <span class="string">'Colormap'</span>, <span class="string">'money'</span>,<span class="keyword">...</span>
+        <span class="string">'Colorbar'</span>, true, <span class="string">'ColorLevels'</span>, 5);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_12.png" alt=""> <p>The colormap can also be constructed on a log-scale. This can be useful if your matrix values are not evenly distributed. Using a log-scale colormap will highlight the variation in the small values in your dataset.</p><pre class="codeinput">clf
+heatmap(spreads_small, [], [], <span class="string">'%0.2f'</span>, <span class="string">'TextColor'</span>, <span class="string">'w'</span>, <span class="keyword">...</span>
+        <span class="string">'Colormap'</span>, <span class="string">'copper'</span>, <span class="string">'Colorbar'</span>, true);
+snapnow
+
+heatmap(spreads_small, [], [], <span class="string">'%0.2f'</span>, <span class="string">'TextColor'</span>, <span class="string">'w'</span>, <span class="keyword">...</span>
+        <span class="string">'Colormap'</span>, <span class="string">'copper'</span>, <span class="string">'Colorbar'</span>, true, <span class="string">'UseLogColormap'</span>, true);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_13.png" alt=""> <img vspace="5" hspace="5" src="heatmap_examples_14.png" alt=""> <h2>Multiple Heatmaps on a Figure<a name="16"></a></h2><p>The <i>heatmap</i> function can be used with multiple axes in a figure, such as with the subplot command. By default they will share the colormap of the figure. The option <i>UseFigureColormap</i>, if set to 0 or false, will make each heatmap use a different colormap.</p><pre class="codeinput">clf
+subplot(2,1,1);
+heatmap(spreads_small, [], [], <span class="string">'%0.2f'</span>, <span class="string">'Colormap'</span>, <span class="string">'money'</span>, <span class="keyword">...</span>
+        <span class="string">'UseFigureColormap'</span>, false, <span class="string">'Colorbar'</span>, true);
+title(<span class="string">'Money Colormap'</span>);
+
+subplot(2,1,2);
+heatmap(spreads_small, [], [], <span class="string">'%0.2f'</span>, <span class="string">'Colormap'</span>, <span class="string">'copper'</span>, <span class="keyword">...</span>
+        <span class="string">'UseFigureColormap'</span>, false, <span class="string">'Colorbar'</span>, true, <span class="string">'TextColor'</span>, <span class="string">'w'</span>);
+title(<span class="string">'Copper Colormap'</span>);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_15.png" alt=""> <h2>Colorbar<a name="17"></a></h2><p>As seen above, a colorbar can be added to the figure using the <i>Colorbar</i> option. The labels for the colorbar will automatically be formatted using the formats for the text labels on the heatmap image. Notice the $ signs on the colorbar in the image below.</p><pre class="codeinput">clf
+heatmap(spreads, [], [], <span class="string">'$%0.2f'</span>, <span class="string">'Colormap'</span>, <span class="string">'money'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 2, <span class="string">'Colorbar'</span>, true);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_16.png" alt=""> <p>The value for the colorbar option can either be a simple true or false in which case the default colorbar will be drawn, or it can include a cell array of property-value pairs for the colorbar command.</p><pre class="codeinput">heatmap(spreads, [], [], <span class="string">'$%0.2f'</span>, <span class="string">'Colormap'</span>, <span class="string">'money'</span>, <span class="keyword">...</span>
+        <span class="string">'FontSize'</span>, 2, <span class="string">'Colorbar'</span>, {<span class="string">'SouthOutside'</span>});
+</pre><img vspace="5" hspace="5" src="heatmap_examples_17.png" alt=""> <h2>Grid Lines<a name="19"></a></h2><p>Grid lines can be added with a <i>GridLines</i> option which is a line specification like ':' for a dotted line</p><pre class="codeinput">clf
+heatmap(spreads_small, labels_small, labels_small, <span class="string">'%0.2f'</span>, <span class="keyword">...</span>
+        <span class="string">'TickAngle'</span>, 45, <span class="string">'GridLines'</span>, <span class="string">':'</span>);
+</pre><img vspace="5" hspace="5" src="heatmap_examples_18.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.13<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Heatmap Examples
+% This scripts demonstrates the capabilities of the _heatmap_ visualization
+% function.
+
+%% Load Data for Visualization
+% Import data set to visualize. The data set contains a matrix of
+% electricity price differences between locations in New England.
+load heatmapData
+
+%% Simple Heatmap
+% Generate heatmap only with no labels
+clf
+heatmap(spreads_small);
+
+%% Axes Ticks & Labels
+% The heatmap above can be made a lot more useful with labels on the
+% columns and rows. We can do this with two more inputs for x and y labels.
+% The labels can be numeric or cell arrays of strings
+clf
+heatmap(spreads_small, 1:15, labels_small);
+
+%%
+% Labels on the x-axis can be rotated to prevent overlap 
+clf
+heatmap(spreads_small, labels_small, labels_small, [], 'TickAngle', 45);
+
+%%
+% By default, for larger heatmaps, not all ticks are shown. This can be
+% forced with the _ShowAllTicks_ option. 
+clf
+heatmap(spreads_small, labels_small, labels_small, [], 'TickAngle', 45,...
+        'ShowAllTicks', true);
+
+%%
+% The font size of the ticks can also be controlled with the _TickFontSize_
+% option. This can help when trying to fit many tick labels on a heatmap.
+clf
+heatmap(spreads, labels, labels, [], 'TickAngle', 45,...
+        'ShowAllTicks', true, 'TickFontSize', 6);
+
+%% Heatmap Text Labels
+% The heatmap image can be overlaid with text strings to either make the
+% heatmap more descriptive or overlay another data set. The text labels can
+% either be just turned on, turned on with a specific format or specified
+% as another numeric matrix or cell array of strings
+
+%% 
+% Turn on text labels with a format $xx.xx. See the documentation of
+% _sprintf_ for more information on format strings
+clf
+heatmap(spreads_small, labels_small, labels_small, '$%0.2f', 'TickAngle', 45);
+
+%%
+% A completely different matrix of data can be shown as text labels on top
+% of the original heatmap, enabling you to overlay another dataset
+
+% Convert matrix c_small into a cell array of formatted strings
+clabel = arrayfun(@(x){sprintf('%0.2f',x)}, c_small); 
+
+clf
+heatmap(spreads_small, labels_small, labels_small, clabel, 'TickAngle', 45);
+
+%% 
+% Properties of text labels include _FontSize_ and _TextColor_. _TextColor_
+% can also be specified as a string 'xor' in which case a color will
+% automatically be chosen for each label to contrast with the color on the
+% image.
+clf
+heatmap(spreads_small, labels_small, labels_small, '$%0.2f', ...
+        'TickAngle', 45, 'FontSize', 6, 'TextColor', 'w');
+
+%% Zoom, Pan & Data Cursors
+% Heatmaps generated with _heatmap_ are interactive, in that you can zoom
+% and pan to explore the visualization. The tick labels will automatically
+% update in response to zoom and pan events. Data cursors are also
+% supported. The text shown in the data cursor is derived from the text
+% labels used to display the data on the heatmap image.
+    
+%% Changing the Colormap
+% Heatmaps, by default, use colormap of the figure in which they are
+% created. So changing the figure colormap will change that of the heatmap
+clf
+
+heatmap(spreads);
+snapnow
+
+colormap cool
+snapnow
+    
+%%
+% _heatmap_ includes two custom colormaps. The colormap _money_ displays
+% values of 0 as white and positive and negative values as shades of green
+% or red. The colormap _red_ displays values of 0 as white and positive
+% values as different shades of red. You can also use your own colormaps
+% with the _Colormap_ option
+
+clf
+heatmap(spreads_small, [], [], '%0.2f', 'Colormap', 'money', ...
+        'Colorbar', true);
+
+%% 
+% The option _ColorLevels_ lets you increase or decrease the number of
+% distinct colors in the colormap.
+clf
+heatmap(spreads_small, [], [], '%0.2f', 'Colormap', 'money',...
+        'Colorbar', true, 'ColorLevels', 5);
+
+%%
+% The colormap can also be constructed on a log-scale. This can be useful
+% if your matrix values are not evenly distributed. Using a log-scale colormap
+% will highlight the variation in the small values in your dataset.
+
+clf
+heatmap(spreads_small, [], [], '%0.2f', 'TextColor', 'w', ...
+        'Colormap', 'copper', 'Colorbar', true);
+snapnow
+
+heatmap(spreads_small, [], [], '%0.2f', 'TextColor', 'w', ...
+        'Colormap', 'copper', 'Colorbar', true, 'UseLogColormap', true);
+
+%% Multiple Heatmaps on a Figure
+% The _heatmap_ function can be used with multiple axes in a figure, such
+% as with the subplot command. By default they will share the colormap of
+% the figure. The option _UseFigureColormap_, if set to 0 or false, will
+% make each heatmap use a different colormap.
+clf
+subplot(2,1,1);
+heatmap(spreads_small, [], [], '%0.2f', 'Colormap', 'money', ...
+        'UseFigureColormap', false, 'Colorbar', true);
+title('Money Colormap');
+    
+subplot(2,1,2);
+heatmap(spreads_small, [], [], '%0.2f', 'Colormap', 'copper', ...
+        'UseFigureColormap', false, 'Colorbar', true, 'TextColor', 'w');
+title('Copper Colormap');
+
+%% Colorbar
+% As seen above, a colorbar can be added to the figure using the _Colorbar_
+% option. The labels for the colorbar will automatically be formatted using
+% the formats for the text labels on the heatmap image. Notice the $ signs
+% on the colorbar in the image below.
+
+clf
+heatmap(spreads, [], [], '$%0.2f', 'Colormap', 'money', ...
+        'FontSize', 2, 'Colorbar', true);
+
+%%
+% The value for the colorbar option can either be a simple true or
+% false in which case the default colorbar will be drawn, or it can include
+% a cell array of property-value pairs for the colorbar command. 
+heatmap(spreads, [], [], '$%0.2f', 'Colormap', 'money', ...
+        'FontSize', 2, 'Colorbar', {'SouthOutside'});
+
+%% Grid Lines
+% Grid lines can be added with a _GridLines_ option which is a line
+% specification like ':' for a dotted line
+clf
+heatmap(spreads_small, labels_small, labels_small, '%0.2f', ...
+        'TickAngle', 45, 'GridLines', ':');
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

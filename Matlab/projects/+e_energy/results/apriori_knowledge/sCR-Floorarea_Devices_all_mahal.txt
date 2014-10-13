@@ -1,0 +1,23 @@
+Classes:
+--------
+	1:	Low
+	2:	Mid
+	3:	High
+
+Classifier:
+-------------
+	mahal
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	1	7	14
+
+Correct Classification: 51.07%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	12	17	2	8	5	7	3	15	11	6	13	1	22	20	16	4
+
+Correct Classification: 55.72%

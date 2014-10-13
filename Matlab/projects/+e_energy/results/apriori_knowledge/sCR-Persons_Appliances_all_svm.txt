@@ -1,0 +1,23 @@
+Classes:
+--------
+	1:	Low
+	2:	Mid
+	3:	High
+
+Classifier:
+-------------
+	svm
+
+A Priori Knowledge: 1-2:
+Selected Features:
+--------------
+	12	14	21	6	20	1	5	13	10	7	22
+
+Correct Classification: 60.89%
+
+A Priori Knowledge: 3+:
+Selected Features:
+--------------
+	10	4	7	19	12	17	3
+
+Correct Classification: 60.99%

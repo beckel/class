@@ -1,0 +1,48 @@
+Subset Classes:
+--------
+	House_Ownership - Rent:
+	1:	Low 		 121 samples
+	2:	Mid 		  62 samples
+	3:	High		  37 samples
+	House_Ownership - Own:
+	1:	Low 		1058 samples
+	2:	Mid 		1161 samples
+	3:	High		1038 samples
+
+SQL Constraints Apriori Knowledge:
+----------------------------
+	1:	WHERE House_Ownership = 1
+	2:	WHERE House_Ownership = 2
+
+SQL Constraints Classes:
+----------------------------
+	1:	WHERE (Appliances + Entertainment <= 8)
+	2:	WHERE ((Appliances + Entertainment > 8) AND (Appliances + Entertainment <= 11))
+	3:	WHERE (Appliances + Entertainment > 11)
+
+Feature Set:
+--------------
+	cons_day_avg                       	dim: 1	Index: 1..1
+	cons_evening_weekday_avg           	dim: 1	Index: 2..2
+	cons_morning_weekday_avg           	dim: 1	Index: 3..3
+	cons_night_weekday_avg             	dim: 1	Index: 4..4
+	cons_noon_weekday_avg              	dim: 1	Index: 5..5
+	cons_weekday_avg                   	dim: 1	Index: 6..6
+	cons_weekend_avg                   	dim: 1	Index: 7..7
+	consumption_variability_weekday_avg	dim: 1	Index: 8..8
+	first_time_above_1000_weekday_avg  	dim: 1	Index: 9..9
+	first_time_above_2000_weekday_avg  	dim: 1	Index: 10..10
+	first_time_daily_max_weekday_avg   	dim: 1	Index: 11..11
+	max_cons_avg                       	dim: 1	Index: 12..12
+	min_cons_avg                       	dim: 1	Index: 13..13
+	num_peaks_avg                      	dim: 1	Index: 14..14
+	time_above_mean_weekday_avg        	dim: 1	Index: 15..15
+	time_above_mean_weekend_avg        	dim: 1	Index: 16..16
+	variance_avg                       	dim: 1	Index: 17..17
+	ratio_morning_noon_weekday_avg     	dim: 1	Index: 18..18
+	ratio_evening_noon_weekday_avg     	dim: 1	Index: 19..19
+	ratio_night_day_avg                	dim: 1	Index: 20..20
+	ratio_min_avg_avg                  	dim: 1	Index: 21..21
+	ratio_workday_weekend              	dim: 1	Index: 22..22
+
+Feature Vector total dim: 22

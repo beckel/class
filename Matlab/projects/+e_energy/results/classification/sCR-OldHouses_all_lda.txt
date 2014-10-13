@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	OldHouses
+	2:	Other
+
+Classifier:
+-------------
+	lda
+
+Selected Features:
+--------------
+	19	15	18	14	5	16	9
+
+Correct Classification: 64.33%

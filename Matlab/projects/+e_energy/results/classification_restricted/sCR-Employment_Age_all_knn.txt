@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Employed
+	2:	Other
+
+Classifier:
+-------------
+	knn
+
+Selected Features:
+--------------
+	19	3	12	18	20	6	13	17	7	21	5
+
+Correct Classification: 66.56%

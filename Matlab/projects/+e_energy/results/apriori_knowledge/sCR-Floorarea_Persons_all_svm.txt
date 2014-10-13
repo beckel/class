@@ -1,0 +1,22 @@
+Classes:
+--------
+	1:	1-2
+	2:	3+
+
+Classifier:
+-------------
+	svm
+
+A Priori Knowledge: <180qm:
+Selected Features:
+--------------
+	1	22	19	18	17	5	2	4	6
+
+Correct Classification: 71.08%
+
+A Priori Knowledge: >180qm:
+Selected Features:
+--------------
+	12	3	22	4	1	21	18	14	2	13	20	17	6
+
+Correct Classification: 74.43%

@@ -1,0 +1,14 @@
+Classes:
+--------
+	1:	Singles
+	2:	Other
+
+Classifier:
+-------------
+	mahal
+
+Selected Features:
+--------------
+	14	7	5	8	1	6	2	3	4
+
+Correct Classification: 76.69%
