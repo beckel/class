@@ -1,1 +1,4 @@
-A system for revealing household properties from smart meter data.
+CLASS
+-----
+
+A system for automatically revealing household characteristics from smart meter data.
