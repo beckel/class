@@ -1,14 +1,14 @@
-function [ sunrise_hour ] = get_sunrise_hour_from_sunrise_sunset(consumption, sun)
+function [ sunrise_hour ] = get_sunrise_hour_from_sunrise_sunset(all_weeks, sun)
 
     assert(strcmp(sun.date{1}, '20-Jul-09') == 1);
     
-    num_weeks = length(consumption.weeks);
+    num_weeks = length(all_weeks);
     num_days = num_weeks * 7;
     
     sunrise_hour = zeros(1, num_days * 48);
     
     for w = 1:num_weeks
-        week = consumption.weeks{w};
+        week = all_weeks(w);
         for d = 1:7
             idx = (week-1)*7 + d;
             sunrise = sun.rise{idx};

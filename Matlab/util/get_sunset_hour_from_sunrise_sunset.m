@@ -1,14 +1,14 @@
-function [ sunset_hour ] = get_sunset_hour_from_sunrise_sunset(consumption, sun)
+function [ sunset_hour ] = get_sunset_hour_from_sunrise_sunset(all_weeks, sun)
 
     assert(strcmp(sun.date{1}, '20-Jul-09') == 1);
     
-    num_weeks = length(consumption.weeks);
+    num_weeks = length(all_weeks);
     num_days = num_weeks * 7;
     
     sunset_hour = zeros(1, num_days * 48);
     
     for w = 1:num_weeks
-        week = consumption.weeks{w};
+        week = all_weeks(w);
         for d = 1:7
             idx = (week-1)*7 + d;
             sunrise = sun.rise{idx};
@@ -27,7 +27,7 @@ function [ sunset_hour ] = get_sunset_hour_from_sunrise_sunset(consumption, sun)
             if minutes >= 30
                 half = 1;
             end
-            daylight_stop = 2 * hours + half;
+            daylight_stop = 2 * hours + half - 2;
             
             daylight_idx = (w-1)*7 + d;
 

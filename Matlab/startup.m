@@ -14,7 +14,7 @@ addpath('data/');
 addpath('data/cer_ireland');
 addpath('data/cer_ireland/weekly_traces');
 addpath('data/cer_ireland/astro');
-addpath('data/cer_ireland/holidays');
+addpath('data/cer_ireland/temperature');
 addpath('data/cer_ireland/clusters');
 
 addpath('data/issm');
