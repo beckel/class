@@ -13,9 +13,6 @@ log_level: 'debug'
 dataset: 'cer_ireland'
 granularity: 30
 
-# Some features require a reference to other weeks (e.g., during summer/winter).
-reference_weeks:
-
 # Should data be collected? (compute features, assign classes, ...)
 # Should classification/regression be performed?
 # [ 0 .. 1 ]
@@ -57,7 +54,7 @@ feature_selection: 'sffs'
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
 feature_set: 'energy.feature_set_all'
-feature_set_plus: 'diss.feature_set_plus'
+feature_set_plus: 'diss.feature_set_plus_no_pca'
     
 ## A PRIORI KNOWLEDGE
 
@@ -114,7 +111,7 @@ classes:
 
 
 weeks:
-  - 1
+#   - 1
 #   - 2
 #   - 3
 #   - 4
@@ -124,7 +121,7 @@ weeks:
 #   - 8
 #   - 9
 #   - 10
-#   - 11
+  - 11
 #   - 12
 #   - 13
 #   - 14

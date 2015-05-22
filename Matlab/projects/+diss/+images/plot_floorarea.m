@@ -3,6 +3,8 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
+clearvars;
+
 folder = '/Users/beckel/Documents/SVN/mine/Thesis/document/figures/03_household_classification/images/cer_dataset/';
 if exist(folder, 'dir') == 0
     mkdir(folder);
@@ -40,7 +42,8 @@ grid on;
 fig = make_report_ready(fig, 'size', [largewidth, largeheight], 'fontsize', fontsize);
 filename = 'ksdensity';
 
-print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
+% print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
+export_fig('-cmyk', '-pdf', [folder, filename, '.pdf']);
 close(fig);
 
 return;

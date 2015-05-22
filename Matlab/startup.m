@@ -15,6 +15,7 @@ addpath('data/cer_ireland');
 addpath('data/cer_ireland/weekly_traces');
 addpath('data/cer_ireland/astro');
 addpath('data/cer_ireland/temperature');
+addpath('data/cer_ireland/heating');
 addpath('data/cer_ireland/clusters');
 
 addpath('data/issm');
@@ -42,17 +43,19 @@ addpath('featuresets');
 addpath('projects');
 
 addpath('util');
-addpath('util/linemarkers');
-addpath('util/matlab2tikz');
-addpath('util/matlab2tikz/src');
-addpath('util/matlab2tikz/tools');
 
 addpath('lib');
-addpath('lib/YAMLMatlab_0.4.3');
+addpath('lib/export_fig');
+addpath('lib/gridxy/');
+addpath('lib/heatmaps/');
 addpath('lib/libsvm-3.17/');
 addpath('lib/libsvm-3.17/matlab/');
+addpath('lib/linemarkers');
+addpath('lib/matlab2tikz');
+addpath('lib/matlab2tikz/src');
+addpath('lib/matlab2tikz/tools');
 addpath('lib/tree/');
-addpath('lib/heatmaps/');
+addpath('lib/YAMLMatlab_0.4.3');
 
 addpath('plot');
 addpath('plot/images');

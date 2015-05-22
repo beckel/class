@@ -3,11 +3,18 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
+clearvars;
+
 folder = '/Users/beckel/Documents/SVN/mine/Thesis/document/figures/03_household_classification/images/cer_dataset/';
 if exist(folder, 'dir') == 0
     mkdir(folder);
 end
-    
+
+filename1 = 'cons_stats_cdf';
+filename2 = 'cons_stats_cumsum';
+filename3 = 'cons_stats_weekday_sum';
+filename4 = 'cons_stats_weekly_development';
+
 weeks = [ 1:75 ];
 cer_ids;
 ids = setdiff(union(type1, type3), exclude);
@@ -15,7 +22,7 @@ ids = setdiff(union(type1, type3), exclude);
 % plotting
 width = 7.5;
 height = 5;
-largewidth = 16;
+largewidth = 17;
 largeheight = 6;
 fontsize = 9;
 
@@ -44,7 +51,7 @@ for i = 1:N
         week = weeks(j);
         % discard trace if it contains more than 4 zeros
         weekly_trace = Consumer.consumption(week, :);
-       if sum(weekly_trace == 0) > 4
+       if sum(weekly_trace == 0) > 10
            continue;
        end
 %           if ~isempty(findstr(weekly_trace, [0 0 0 0 0 0 0 0 0 0]))
@@ -77,8 +84,6 @@ num_traces_all_users(idx_to_delete) = [];
 
 save('avg_cons_all_users.mat', 'avg_cons_all_users', 'num_traces_all_users', 'weekly_traces', 'num_weekly_traces', 'avg_cons_per_week', 'num_traces_per_week');
 
-% return;
-
 %% plot daily, weekday, week-end average consumption for each week
 load('avg_cons_all_users.mat');
 
@@ -91,8 +96,8 @@ xlabel('Yearly power consumption [kWh]');
 ylabel('Cumulative probability');
 set(gcf,'color','w');
 fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
-filename = 'cons_stats_cdf';
-print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
+export_fig('-cmyk', '-pdf', [folder, filename1, '.pdf']);
+% print('-dpdf', '-cmyk', '-r600', [folder, filename1, '.pdf']);
 close(fig);
 
 %% cumulative sum (first 52 weeks)
@@ -108,8 +113,8 @@ ylabel('Share of total consumption');
 set(gcf,'color','w');
 grid on;
 fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
-filename = 'cons_stats_cumsum';
-print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
+% print('-dpdf', '-cmyk', '-r600', [folder, filename2, '.pdf']);
+export_fig('-cmyk', '-pdf', [folder, filename2, '.pdf']);
 close(fig);
 
 %% plot average weekday trace (whole 75 weeks)
@@ -131,8 +136,8 @@ title('Average consumption of all households over one week');
 set(gcf,'color','w');
 grid on;
 fig = make_report_ready(fig, 'size', [largewidth, largeheight], 'fontsize', fontsize);
-filename = 'cons_stats_weekday_sum';
-print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
+% print('-dpdf', '-cmyk', '-r600', [folder, filename3, '.pdf']);
+export_fig('-cmyk', '-pdf', [folder, filename3, '.pdf']);
 close(fig);
 
 %% plot weekly average consumption (whole 75 weeks)
@@ -146,15 +151,6 @@ title('Average weekly consumption of all households over the trial');
 set(gcf,'color','w');
 grid on;
 fig = make_report_ready(fig, 'size', [largewidth, largeheight], 'fontsize', fontsize);
-filename = 'cons_stats_weekly_development';
-print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
+% print('-dpdf', '-cmyk', '-r600', [folder, filename4, '.pdf']);
+export_fig('-cmyk', '-pdf', [folder, filename4, '.pdf']);
 close(fig);
-
-%% TODO3: build storyline
-%% TODO 4: write chapter!
-
-
-
-
-
-
