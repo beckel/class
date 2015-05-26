@@ -5,6 +5,9 @@ warning('OFF', 'stats:regress:RankDefDesignMat');
 all_weeks = 1:75;
 num_measurements = 48 * 7 * 75;
 
+cer_ids;
+ids = setdiff(union(type1, type3), exclude);
+
 % output
 temperature_and_daylight_variables = zeros(length(ids), 4);
 
@@ -51,8 +54,6 @@ for m = 1:12
     end
 end
     
-cer_ids;
-ids = setdiff(union(type1, type3), exclude);
 for i = 1:length(ids)
     fprintf('Processing household %d of %d\n', i, length(ids));
     

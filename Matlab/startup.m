@@ -46,7 +46,6 @@ addpath('util');
 
 addpath('lib');
 addpath('lib/export_fig');
-addpath('lib/gridxy/');
 addpath('lib/heatmaps/');
 addpath('lib/libsvm-3.17/');
 addpath('lib/libsvm-3.17/matlab/');

@@ -1,19 +1,9 @@
-% X = perms(1:9);
-% count = 0;
-% for row = 1:size(X,1)
-% %     fprintf('Seaching ... %d\n', row);
-%     res = (((X(row,1) + 13) * X(row,2) / X(row,3) + X(row,4) + 12) * X(row,5) - X(row,6) - 11 + X(row,7)) * X(row,8) / X(row,9) - 10;
-%     if res == 66
-%         fprintf('%d%d%d%d%d%d%d%d%d, \n', X(row,1), X(row,2), X(row,3), X(row,4), X(row,5), X(row,6), X(row,7), X(row,8), X(row,9));
-%         count = count+1;
-%     end
-% end
-% fprintf('Found %d solutions\n', count);
-    
 % This file is part of the project CLASS (https://github.com/beckel/class).
 % Licence: GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
+
+clearvars;
 
 folder = '/Users/beckel/Documents/SVN/mine/Thesis/document/figures/03_household_classification/images/weather/';
 if exist(folder, 'dir') == 0
@@ -24,10 +14,8 @@ end
 % ids = setdiff(union(type1, type3), exclude);
 
 % plotting
-width = 7.5;
-height = 5.5;
-largewidth = 16;
-largeheight = 6;
+width = 7.7;
+height = 6;
 fontsize = 9;
 
 % N = length(ids);
@@ -58,8 +46,6 @@ fontsize = 9;
 %% temperature coefficient
 load('temperature_and_daylight_variables.mat');
 temperature_coefficients = temperature_and_daylight_variables(:,4);
-
-clearvars;
 
 %% Heating characteristics
 [ID,Q41,Q42,Q43,Q44,Q45,Q46,Q47] = import_heating('heating_characteristics.csv');

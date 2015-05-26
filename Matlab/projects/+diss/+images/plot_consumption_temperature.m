@@ -14,10 +14,8 @@ cer_ids;
 ids = setdiff(union(type1, type3), exclude);
 
 % plotting
-width = 7.5;
-height = 5;
-largewidth = 16;
-largeheight = 6;
+width = 17.5;
+height = 6.5;
 fontsize = 9;
 
 N = length(ids);
@@ -78,7 +76,7 @@ xlim([min_x - 0.5, max_x + 0.5]);
 set(gcf,'color','w');
 % legend({'Specified in m^2', 'Specified in ft^2'});
 grid on;
-fig = make_report_ready(fig, 'size', [largewidth, largeheight], 'fontsize', fontsize);
+fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
 filename = 'temp_vs_consumption';
 % print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
 export_fig('-cmyk', '-pdf', [folder, filename, '.pdf']);

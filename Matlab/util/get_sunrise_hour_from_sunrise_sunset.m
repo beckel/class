@@ -18,7 +18,7 @@ function [ sunrise_hour ] = get_sunrise_hour_from_sunrise_sunset(all_weeks, sun)
             if minutes >= 30
                 half = 1;
             end
-            daylight_start = 2 * hours + half + 1 + 1;
+            daylight_start = 2 * hours + half + 1 + 2;
             
             sunset = sun.set{idx};
             hours = round((datenum(sunset, 'HH:MM') - datenum('00:00', 'HH:MM')) * 24);
@@ -27,7 +27,7 @@ function [ sunrise_hour ] = get_sunrise_hour_from_sunrise_sunset(all_weeks, sun)
             if minutes >= 30
                 half = 1;
             end
-            daylight_stop = 2 * hours + half;
+            daylight_stop = 2 * hours + half + 1;
             
             daylight_idx = (w-1)*7 + d;
 

@@ -157,7 +157,7 @@ for p = 1:2
     fig = figure;
     imagesc(data{p});
 
-    colormap('winter');
+    colormap('summer');
     colormap(flipud(colormap));
     set(gca,'YTick',1:num_labels);
     set(gca,'YTickLabel',labels_in_plot);
