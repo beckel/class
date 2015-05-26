@@ -74,11 +74,6 @@ function varargout = make_report_ready(fig_h, varargin)
 					elseif (strcmpi(value, 'wide'))
 						width = 19.8;
 						height = 7.2;
-                    elseif (strcmpi(value, 'features'))
-                        width = 14;
-                        height = 4.5;
-                        linewidth = 10;
-                        fontsize = 9;
                     elseif(strcmpi(value, 'consumption_overview'))
                         width = 10;
                         height = 6.5;

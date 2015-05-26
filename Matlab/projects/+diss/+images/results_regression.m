@@ -6,7 +6,7 @@
 function results_regression()
 	
     result_path = 'projects/+energy/results/regression/26/sffs/';
-    figure_path = 'projects/+diss/+images/results_regression/';
+    figure_path = '/Users/beckel/Documents/SVN/mine/Thesis/document/figures/03_household_classification/images/results_regression/';
 
     labels = { ...
         'Age'; ...
@@ -26,7 +26,7 @@ function results_regression()
         '#residents'; ...
     };
     
-    width = 17.5;
+    width = 18;
     height = 16;
     linewidth = 1;
     fontsize = 9;
@@ -184,7 +184,7 @@ function results_regression()
 
                 ar2 = num2str(rsquare(sR), precision);
                 my_rmse = num2str(rmse(sR), precision);
-                title({titles{5}, ['(RMSE=', my_rmse, ', R^2=', ar2, ')']}, 'FontSize', 8, 'FontName', fontname);
+                title({titles{5}, ['(RMSE=', my_rmse, ', R^2=', ar2, ')']}, 'FontSize', fontsize, 'FontName', fontname);
 
             case 'Persons' 
                 truth(truth > 4) = 5;
@@ -215,6 +215,8 @@ function results_regression()
         end
     end
 
+    set(gcf,'color','w');
+    
     fig_h = make_report_ready(fig_h, 'size', [width, height, linewidth, fontsize]);
     
     % Save figure
@@ -225,7 +227,7 @@ function results_regression()
     % print('-depsc2', '-cmyk', '-r600', [figure_path, filename, '.eps']);
     export_fig('-cmyk', '-pdf', [figure_path, filename, '.pdf']);
 
-    saveas(fig_h, [figure_path, filename, '.png']);
+%     saveas(fig_h, [figure_path, filename, '.png']);
     close(fig_h);
 
 end

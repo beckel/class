@@ -8,7 +8,7 @@ function results_accuracy_best()
     %% Preset Files 
 	
 	result_path = 'projects/+energy/results/classification/26/sffs/';
-	figure_path = 'projects/+energy/+images/results_accuracy_best/';
+	figure_path = '/Users/beckel/Documents/SVN/mine/Thesis/document/figures/03_household_classification/images/results_accuracy_best/';
 
     labels = { ...
             'Age';...
@@ -84,9 +84,9 @@ function results_accuracy_best()
 %                 'Random guess'; ...
 %                };
 
-    width = 16;
-    height = 6.5;
-    fontsize = 8;
+    width = 19;
+    height = 8;
+    fontsize = 9;
     
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -166,7 +166,8 @@ function results_accuracy_best()
 	ylim([0 1]);
 	set(gca, 'YGrid', 'on');
 	ylabel('Accuracy');
-        
+    set(gcf,'color','w');
+    
     legend(l_legend, 'Location', 'NE'); 
        
     y_ticks = get(gca, 'YTick');
@@ -177,18 +178,18 @@ function results_accuracy_best()
     set(gca, 'YTickLabel', y_tick_labels);
 	
     % move y axis label closer to the axis
-    ylab = get(gca,'YLabel');
-    set(ylab,'Position', get(ylab, 'Position') - [-0.25 0 0]);
+%    ylab = get(gca,'YLabel');
+%    set(ylab,'Position', get(ylab, 'Position') - [-0.25 0 0]);
 
     fig_h = make_report_ready(fig_h, 'size', [width height], 'fontsize', fontsize);
     xticklabel_rotate(1:length(labelsInPlot),45,labelsInPlot,'interpreter','none', 'Fontsize', fontsize);
     
-    set(fig_h, 'PaperUnits', 'centimeters');
-	set(fig_h, 'PaperSize', [width height]);
-	set(fig_h, 'PaperPosition', [0 0 width height]);
-	set(fig_h, 'PaperPositionMode', 'manual');
-	set(fig_h, 'Units', 'centimeters');
-	set(fig_h, 'Position', get(fig_h, 'PaperPosition'));
+%     set(fig_h, 'PaperUnits', 'centimeters');
+% 	set(fig_h, 'PaperSize', [width height]);
+% 	set(fig_h, 'PaperPosition', [0 0 width height]);
+% 	set(fig_h, 'PaperPositionMode', 'manual');
+% 	set(fig_h, 'Units', 'centimeters');
+% 	set(fig_h, 'Position', get(fig_h, 'PaperPosition'));
     
     %% Save figure
 	filename = 'results_accuracy_best';
