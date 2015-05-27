@@ -3,9 +3,9 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-% number of peaks: number (on a day) of values with two neighbors that have at least 200mW less consumption - week average
-function feature = num_peaks_weekday_avg(consumption)
-	if strcmp(consumption, 'dim') == 1
+% cross correlation between weekdays - weekday average
+function feature = hourly_cross_correlation_weekday_avg(consumption)
+    if strcmp(consumption, 'dim') == 1
 		feature = 1;
     else
         if consumption.granularity ~= 30
@@ -17,12 +17,14 @@ function feature = num_peaks_weekday_avg(consumption)
         for i=1:num_weeks
             trace = consumption.weekly_traces{i};
             trace = mean(reshape(trace, 2, 7*24), 1);
-            tmp = num_peaks(trace);
-            tmp(tmp > 8) = 8;
-            weekly_averages(i) = mean(tmp(1:5));
+            tmp = cross_correlation(trace);
+            weekly_averages(i) = mean(tmp(1:4));
         end
         
         feature = mean(weekly_averages);
+        
+        if feature < -0.2
+            feature = -0.2;
+        end
     end
 end
-   

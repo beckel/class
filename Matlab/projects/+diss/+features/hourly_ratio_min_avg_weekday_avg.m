@@ -3,8 +3,8 @@
 % Copyright: ETH Zurich & TU Darmstadt, 2012
 % Authors: Christian Beckel (beckel@inf.ethz.ch), Leyna Sadamori (sadamori@inf.ethz.ch)
 
-% number of peaks: number (on a day) of values with two neighbors that have at least 200mW less consumption - week average
-function feature = num_peaks_weekday_avg(consumption)
+% minimum consumption / average consumption - weekday average
+function feature = ratio_min_avg_weekday_avg(consumption)
 	if strcmp(consumption, 'dim') == 1
 		feature = 1;
     else
@@ -17,12 +17,13 @@ function feature = num_peaks_weekday_avg(consumption)
         for i=1:num_weeks
             trace = consumption.weekly_traces{i};
             trace = mean(reshape(trace, 2, 7*24), 1);
-            tmp = num_peaks(trace);
-            tmp(tmp > 8) = 8;
+            minimum = cons_min(trace);
+            average = cons_wholeday(trace);
+            tmp = minimum ./ average;
             weekly_averages(i) = mean(tmp(1:5));
         end
         
-        feature = mean(weekly_averages);
+        feature = sqrt(sqrt(mean(weekly_averages)));
     end
 end
    

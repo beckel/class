@@ -53,8 +53,8 @@ feature_selection: 'sffs'
   
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
-feature_set: 'energy.feature_set_all'
-feature_set_plus: 'diss.feature_set_plus_no_pca'
+feature_set: 'diss.feature_set_daily'
+feature_set_plus: 'diss.feature_set_plus'
     
 ## A PRIORI KNOWLEDGE
 

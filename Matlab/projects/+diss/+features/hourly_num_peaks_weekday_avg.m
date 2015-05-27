@@ -16,7 +16,6 @@ function feature = num_peaks_weekday_avg(consumption)
         weekly_averages = zeros(1,num_weeks);
         for i=1:num_weeks
             trace = consumption.weekly_traces{i};
-            trace = mean(reshape(trace, 2, 7*24), 1);
             tmp = num_peaks(trace);
             tmp(tmp > 8) = 8;
             weekly_averages(i) = mean(tmp(1:5));
