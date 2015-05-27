@@ -150,6 +150,16 @@ for c = 1:C
                 samples{c}(num_features_orig+1, i) = temperature_and_daylight_variables(idx, 2);
                 samples{c}(num_features_orig+2, i) = temperature_and_daylight_variables(idx, 3);
                 samples{c}(num_features_orig+3, i) = temperature_and_daylight_variables(idx, 4);
+            elseif isequal(feat_set_plus{j}, @hourly_temperature_sunrise_sunset) == 1
+                load('data_selection/temperature_and_daylight_variables_hourly.mat');
+                idx = find(temperature_and_daylight_variables(:,1) == id);
+                samples{c}(num_features_orig+1, i) = temperature_and_daylight_variables(idx, 2);
+                samples{c}(num_features_orig+2, i) = temperature_and_daylight_variables(idx, 3);
+                samples{c}(num_features_orig+3, i) = temperature_and_daylight_variables(idx, 4);
+            elseif isequal(feat_set_plus{j}, @daily_temperature_sunrise_sunset) == 1
+                load('data_selection/temperature_and_daylight_variables_daily.mat');
+                idx = find(temperature_and_daylight_variables(:,1) == id);
+                samples{c}(num_features_orig+1, i) = temperature_and_daylight_variables(idx, 2);
             end
         end
 

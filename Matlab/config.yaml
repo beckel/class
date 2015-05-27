@@ -22,7 +22,7 @@ perform_regression: 0
 
 classifier_params:
   - [ num_features, 12 ]
-  - [ undersampling, 1 ]
+  - [ undersampling, 0 ]
 
 # Path where to store classification results
 path_classification: 'results/classification/'
@@ -31,7 +31,7 @@ path_regression: 'results/regression/'
 # Optimization criterion (figure of merit)
 # NOTE: f_measure is only possible for two-class classification tasks
 figure_of_merit:
-  - [ mcc, '@mcc' ]
+#  - [ mcc, '@mcc' ]
   - [ accuracy, '@accuracy' ]
 #  - [ area_under_curve, '@area_under_curve' ]
 #  - [ rsquare, '@rsquare' ]
@@ -54,7 +54,7 @@ feature_selection: 'sffs'
 # Feature set that is used?
 # [ e_energy.feature_set_all feature_set_all ]
 feature_set: 'diss.feature_set_daily'
-feature_set_plus: 'diss.feature_set_plus'
+feature_set_plus: 'diss.feature_set_plus_daily'
     
 ## A PRIORI KNOWLEDGE
 
@@ -186,4 +186,7 @@ weeks:
 #   - 73
 #   - 74
 #   - 75
+
+classifiers:
+  - lda
 
