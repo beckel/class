@@ -181,14 +181,15 @@ for c = 1:C
 end
 
 % compute principal components as additional features
-tmp = 0;
+num_pca = 0;
 for j = 1 : length(feat_set_plus)
     if isequal(feat_set_plus{j}, @pca_analysis) == 1
-        tmp = 1;
+        num_pca = pca_analysis('dim');
+    elseif isequal(feat_set_plus{j}, @pca_analysis_small) == 1
+        num_pca = pca_analysis_small('dim');
     end
 end
-if tmp == 1
-    num_pca = pca_analysis('dim');
+if num_pca > 0
     all_samples = cell2mat(samples);
     features = all_samples(1:num_features-num_pca,:);
     X = features';
