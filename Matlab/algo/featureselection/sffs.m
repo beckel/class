@@ -34,6 +34,7 @@ function [sFSR] = sffs(sFS, figureOfMerit, num_features, log)
 %%%%%
 
 num_features = 7;
+% num_features = 5;
 % num_features = 3;
 
 %% Process input data and run SFS for k=2 in order to get started
