@@ -22,19 +22,9 @@ function run_experiment(config_file)
     %% Compute features and store results in 'results/classification'
     %% Takes a long time - comment out when not needed
     if Config.perform_data_collection == 1
-        if Config.apriori == 1
-            apriori_class_func = Config.apriori_classes;
-            for a = 1:length(apriori_class_func)
-                for c = 1:length(class_func)
-                    fprintf('a: %d, c: %d\n', a, c);
-                    data_selection_apriori(Config, str2func(apriori_class_func{a}), str2func(class_func{c}));
-                end
-            end 
-        elseif Config.apriori == 0
-            for i = 1:length(class_func) 
-                data_selection(Config, str2func(class_func{i}));
-            end
-        end      
+        for i = 1:length(class_func) 
+            data_selection(Config, str2func(class_func{i}));
+        end
     end
 
     %% Run Classification
@@ -55,37 +45,15 @@ function run_experiment(config_file)
             end
 
             classifiers = Config.classifiers;
-            % If no apriori knowledge is given
-            if Config.apriori == 0
-                for f = 1:length(class_func)
-                    for m = 1:length(classifiers)
-                        class_function = str2func(class_func{f});
-                        class_name = class_function('name');
-                        data_file = [Config.path_classification, num2str(Config.weeks{1}), '/sD-', class_name, '.mat'];
-                        fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
-                        load(data_file);
-                        classification(Config, sD, classifiers{m}, sInfo, figureOfMerit, log);
-                    end 
-                end
-            % If apriori knowledge is given
-            else
-                apriori_class_func = Config.apriori_classes;
-                for a = 1:length(apriori_class_func)
-                    for c = 1:length(class_func)
-                        for m = 1:length(classifiers)
-                            apriori_function = str2func(apriori_class_func{a});
-                            apriori_name = apriori_function('name'); 
-                            class_function = str2func(class_func{c});
-                            class_name = class_function('name');
-
-                            % perform classification based on apriori classes
-                            data_file = [Config.path_apriori, num2str(Config.weeks{1}), '/sD-', class_name, '_apriori_', apriori_name, '.mat'];
-                            fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
-                            load(data_file);
-                            classification(Config, sD, classifiers{m}, sInfo, figureOfMerit, log);
-                        end
-                    end
-                end
+            for f = 1:length(class_func)
+                for m = 1:length(classifiers)
+                    class_function = str2func(class_func{f});
+                    class_name = class_function('name');
+                    data_file = [Config.path_classification, num2str(Config.weeks{1}), '/sD-', class_name, '.mat'];
+                    fprintf('\nClassifying %s using %s classifier:\n\n', data_file, classifiers{m});
+                    load(data_file);
+                    classification(Config, sD, classifiers{m}, sInfo, figureOfMerit, log);
+                end 
             end
         end
     end

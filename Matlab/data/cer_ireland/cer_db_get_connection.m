@@ -10,7 +10,7 @@ function connection = cer_db_get_connection()
 	port = '3306';
 	URL = ['jdbc:mysql://', address, ':', port, '/', db_name];
 	user = 'cer_user';
-	password = 'vhweauawguahe';
+	password = 'XYZ';
 
 	connection = database(db_name, user, password, driver, URL);
 end

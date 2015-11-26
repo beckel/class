@@ -142,7 +142,7 @@ label_only = [ label_only, ...
                     7 * ones(1, length(coefficient_only_other)), ...
                     ];
 
-legend = {'Electric (central)', 'Electric (plug in)', 'Gas', 'Oil', 'Solid fuel', 'Renewable', 'Other'};
+legend = {'Electric (central)', 'Electric (plug-in)', 'Gas', 'Oil', 'Solid fuel', 'Renewable', 'Other'};
 
 fig = figure;                
 boxplot(coefficients_only, label_only, 'labels', legend);

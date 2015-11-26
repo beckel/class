@@ -54,8 +54,8 @@ function [ ROC, decision_boundary ] = generate_roc( sCR, basis, method )
     R_y = [];
     dist_prev = -Inf;
     
-    P = sum(truth == basis);
-    N = sum(truth ~= basis);
+    P = sum(ismember(truth, basis));
+    N = length(truth) - P;
         
     num_samples = size(samples,1);
     for j = 1:num_samples
@@ -69,7 +69,7 @@ function [ ROC, decision_boundary ] = generate_roc( sCR, basis, method )
             dist_prev = samples(i);
         end
         
-        if truth(i) == basis
+        if sum(ismember(basis, truth(i))) == 1
             TP = TP + 1;
         else
             FP = FP + 1;

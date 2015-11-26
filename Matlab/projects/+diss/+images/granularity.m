@@ -1,7 +1,6 @@
+%% Preset Files 
 
 clear;
-
-%% Preset Files 
 
 result_path_half = 'projects/+diss/results/classification_weather_pca/';
 result_path_hour = 'projects/+diss/results/classification_weather_pca_hourly/';
@@ -61,7 +60,7 @@ l_legend = {'30-min'; ...
            };
 
 width = 19;
-height = 9;
+height = 6.5;
 fontsize = 9;
 
 weeks = 1:75;
@@ -70,6 +69,8 @@ min_weeks_available = 50;
 num_labels = length(labels);
 num_weeks = length(weeks);
 num_households = 10000;
+
+%% analysis
 
 % (1): 30-min accuracy
 % (2): 30-min mcc
@@ -198,24 +199,30 @@ for iter = 1:3
     result(end, (iter-1)*2+1) = 100 * mean(accuracies_majority);
     result(end, iter*2) = mean(mccs_majority);
 end
+save('granularity_result.mat', 'result');
 
 %% Plot results
 filenames = {'granularity_accuracy', 'granularity_mcc'};
-ylims = {[30, 85], [0.02, 0.55]};
+ylims = {[30, 90], [0.02, 0.55]};
 ylabels = {'Accuracy', 'MCC'};
+load('granularity_result.mat');
 for p = 1:2
 
     fig_h = figure();
-    data_to_plot = [result(:,p), result(:,p+2), result(:,p+4)];
+    data_to_plot = [result(1:num_labels,p), result(1:num_labels,p+2), result(1:num_labels,p+4)];
     bar(data_to_plot, 'grouped');
 
-%     xlim([0, (length(labels)+1)]);
+    xlim([0, (length(labels)+1)]);
     ylim(ylims{p});
     set(gca, 'YGrid', 'on');
     ylabel(ylabels{p});
     set(gcf,'color','w');
 
-    legend(l_legend, 'Location', 'NorthOutside', 'orientation', 'horizontal'); 
+    if p == 1
+        legend(l_legend, 'Location', 'North', 'orientation', 'horizontal'); 
+    elseif p == 2
+        legend(l_legend, 'Location', 'NorthWest', 'orientation', 'vertical'); 
+    end
 
     if p == 1
         y_ticks = get(gca, 'YTick');
@@ -249,9 +256,6 @@ for p = 1:2
     close(fig_h);
 
 end
-%% Write table
+% Write table
 csvwrite([figure_path, filename, '.csv'], result);
     
-
-
-

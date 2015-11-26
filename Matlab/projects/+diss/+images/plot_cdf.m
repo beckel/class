@@ -81,8 +81,9 @@ end
 idx_to_delete = find(isnan(avg_cons_all_users));
 avg_cons_all_users(idx_to_delete) = [];
 num_traces_all_users(idx_to_delete) = [];
-
-save('avg_cons_all_users.mat', 'avg_cons_all_users', 'num_traces_all_users', 'weekly_traces', 'num_weekly_traces', 'avg_cons_per_week', 'num_traces_per_week');
+household_ids = ids;
+household_ids(idx_to_delete) = [];
+save('avg_cons_all_users.mat', 'avg_cons_all_users', 'num_traces_all_users', 'weekly_traces', 'num_weekly_traces', 'avg_cons_per_week', 'num_traces_per_week', 'household_ids');
 
 %% plot daily, weekday, week-end average consumption for each week
 load('avg_cons_all_users.mat');
@@ -107,7 +108,7 @@ cumulative_sum = cumsum(sort(percentage_of_overall));
 fig = figure;
 plot(cumulative_sum);
 xlim([0,length(cumulative_sum)]);
-xlabel('No. households');
+xlabel('Number of households');
 ylabel('Share of total consumption');
 % title('Cumulative sum');
 set(gcf,'color','w');
@@ -132,7 +133,7 @@ xticks_labels = {'Mo', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'};
 xticks = 25:48:336;
 xticks = set(gca, 'XTick', xticks);
 set(gca, 'XTickLabel', xticks_labels);
-title('Average consumption of all households over one week');
+% title('Average consumption of all households over one week');
 set(gcf,'color','w');
 grid on;
 fig = make_report_ready(fig, 'size', [largewidth, largeheight], 'fontsize', fontsize);
@@ -147,7 +148,7 @@ plot(weekly_average_consumption);
 xlabel('Week');
 ylabel('Power consumption [kWh]');
 xlim([1, 75]);
-title('Average weekly consumption of all households over the trial');
+% title('Average weekly consumption of all households over the trial');
 set(gcf,'color','w');
 grid on;
 fig = make_report_ready(fig, 'size', [largewidth, largeheight], 'fontsize', fontsize);

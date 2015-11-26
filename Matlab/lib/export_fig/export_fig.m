@@ -21,6 +21,8 @@ function [imageData, alpha] = export_fig(varargin)
 %   export_fig ... -append
 %   export_fig ... -bookmark
 %   export_fig ... -clipboard
+%   export_fig ... -update
+%   export_fig ... -nofontswap
 %   export_fig(..., handle)
 %
 % This function saves a figure or single axes to one or more vector and/or
@@ -138,12 +140,16 @@ function [imageData, alpha] = export_fig(varargin)
 %                Note: background transparency is not preserved in clipboard
 %   -d<gs_option> - option to indicate a ghostscript setting. For example,
 %                   -dMaxBitmap=0 or -dNoOutputFonts (Ghostscript 9.15+).
-%   -depsc - option to use EPS level-3 rather than the default level-2 print
-%            device. This solves some bugs with Matlab's default -depsc2 device
-%            such as discolored subplot lines on images (vector formats only).
-%   handle - The handle of the figure, axes or uipanels (can be an array of
-%            handles, but the objects must be in the same figure) to be
-%            saved. Default: gcf.
+%   -depsc -  option to use EPS level-3 rather than the default level-2 print
+%             device. This solves some bugs with Matlab's default -depsc2 device
+%             such as discolored subplot lines on images (vector formats only).
+%   -update - option to download and install the latest version of export_fig
+%   -nofontswap - option to avoid font swapping. Font swapping is automatically
+%             done in vector formats (only): 11 standard Matlab fonts are
+%             replaced by the original figure fonts. This option prevents this.
+%   handle -  The handle of the figure, axes or uipanels (can be an array of
+%             handles, but the objects must be in the same figure) to be
+%             saved. Default: gcf.
 %
 % Outputs:
 %   imageData - MxNxC uint8 image array of the exported image.
@@ -213,6 +219,12 @@ function [imageData, alpha] = export_fig(varargin)
 % 07/05/15: Partial fix for issue #65: PDF export used painters rather than opengl renderer (thanks Nguyenr)
 % 08/05/15: Fixed issue #65: bad PDF append since commit #e9f3cdf 21/04/15 (thanks Robert Nguyen)
 % 12/05/15: Fixed issue #67: exponent labels cropped in export, since fix #63 (04/05/15)
+% 28/05/15: Fixed issue #69: set non-bold label font only if the string contains symbols (\beta etc.), followup to issue #21
+% 29/05/15: Added informative error message in case user requested SVG output (issue #72)
+% 09/06/15: Fixed issue #58: -transparent removed anti-aliasing when exporting to PNG
+% 19/06/15: Added -update option to download and install the latest version of export_fig
+% 07/07/15: Added -nofontswap option to avoid font-swapping in EPS/PDF
+% 16/07/15: Fixed problem with anti-aliasing on old Matlab releases
 %}
 
     if nargout
@@ -221,8 +233,7 @@ function [imageData, alpha] = export_fig(varargin)
     hadError = false;
     displaySuggestedWorkarounds = true;
 
-    % Make sure the figure is rendered correctly _now_ so that properties like
-    % axes limits are up-to-date.
+    % Ensure the figure is rendered correctly _now_ so that properties like axes limits are up-to-date
     drawnow;
     pause(0.05);  % this solves timing issues with Java Swing's EDT (http://undocumentedmatlab.com/blog/solving-a-matlab-hang-problem)
 
@@ -298,12 +309,14 @@ function [imageData, alpha] = export_fig(varargin)
         % ignore - fix issue #4 (using HG2 on R2014a and earlier)
     end
 
-    % Fix issue #21 (bold TeX axes labels/titles in R2014b)
+    % Fix issue #21 (bold TeX axes labels/titles in R2014b when exporting to EPS/PDF)
     try
-        if using_hg2(fig)
+        if using_hg2(fig) && isvector(options)
             % Set the FontWeight of axes labels/titles to 'normal'
+            % Fix issue #69: set non-bold font only if the string contains symbols (\beta etc.)
             texLabels = findall(fig, 'type','text', 'FontWeight','bold');
-            set(texLabels, 'FontWeight','normal');
+            symbolIdx = ~cellfun('isempty',strfind({texLabels.String},'\'));
+            set(texLabels(symbolIdx), 'FontWeight','normal');
         end
     catch
         % ignore
@@ -375,12 +388,16 @@ function [imageData, alpha] = export_fig(varargin)
                 set(hCB(yCol==0), 'YColor', [0 0 0]);
                 set(hCB(xCol==0), 'XColor', [0 0 0]);
 
-                % The following code might cause out-of-memory errors, so it was chanegd
-                % Print large version to array
-                %B = print2array(fig, magnify, renderer);
-                % Downscale the image
-                %B = downsize(single(B), options.aa_factor);
-                B = single(print2array(fig, magnify/options.aa_factor, renderer));
+                % The following code might cause out-of-memory errors
+                try
+                    % Print large version to array
+                    B = print2array(fig, magnify, renderer);
+                    % Downscale the image
+                    B = downsize(single(B), options.aa_factor);
+                catch
+                    % This is more conservative in memory, but kills transparency (issue #58)
+                    B = single(print2array(fig, magnify/options.aa_factor, renderer));
+                end
 
                 % Set background to white (and set size)
                 set(fig, 'Color', 'w', 'Position', pos);
@@ -388,12 +405,16 @@ function [imageData, alpha] = export_fig(varargin)
                 set(hCB(yCol==3), 'YColor', [1 1 1]);
                 set(hCB(xCol==3), 'XColor', [1 1 1]);
 
-                % The following code might cause out-of-memory errors, so it was chanegd
-                % Print large version to array
-                %A = print2array(fig, magnify, renderer);
-                % Downscale the image
-                %A = downsize(single(A), options.aa_factor);
-                A = single(print2array(fig, magnify/options.aa_factor, renderer));
+                % The following code might cause out-of-memory errors
+                try
+                    % Print large version to array
+                    A = print2array(fig, magnify, renderer);
+                    % Downscale the image
+                    A = downsize(single(A), options.aa_factor);
+                catch
+                    % This is more conservative in memory, but kills transparency (issue #58)
+                    A = single(print2array(fig, magnify/options.aa_factor, renderer));
+                end
 
                 % Set the background colour (and size) back to normal
                 set(fig, 'Color', tcol, 'Position', pos);
@@ -579,7 +600,7 @@ function [imageData, alpha] = export_fig(varargin)
             end
             try
                 % Generate an eps
-                print2eps(tmp_nam, fig, [options.bb_padding, options.crop], p2eArgs{:});
+                print2eps(tmp_nam, fig, [options.bb_padding, options.crop, options.fontswap], p2eArgs{:});
                 % Remove the background, if desired
                 if options.transparent && ~isequal(get(fig, 'Color'), 'none')
                     eps_remove_background(tmp_nam, 1 + using_hg2(fig));
@@ -787,6 +808,8 @@ function [fig, options] = parse_args(nout, fig, varargin)
         'bookmark', false, ...
         'closeFig', false, ...
         'quality', [], ...
+        'update', false, ...
+        'fontswap', true, ...
         'gs_options', {{}});
     native = false; % Set resolution to native of an image
 
@@ -842,32 +865,61 @@ function [fig, options] = parse_args(nout, fig, varargin)
                         options.clipboard = true;
                         options.im = true;
                         options.alpha = true;
+                    case 'svg'
+                        msg = ['SVG output is not supported by export_fig. Use one of the following alternatives:\n' ...
+                               '  1. saveas(gcf,''filename.svg'')\n' ...
+                               '  2. plot2svg utility: http://github.com/jschwizer99/plot2svg\n' ...
+                               '  3. export_fig to EPS/PDF, then convert to SVG using generic (non-Matlab) tools\n'];
+                        error(sprintf(msg)); %#ok<SPERR>
+                    case 'update'
+                        % Download the latest version of export_fig into the export_fig folder
+                        try
+                            zipFileName = 'https://github.com/altmany/export_fig/archive/master.zip';
+                            folderName = fileparts(which(mfilename('fullpath')));
+                            targetFileName = fullfile(folderName, datestr(now,'yyyy-mm-dd.zip'));
+                            urlwrite(zipFileName,targetFileName);
+                        catch
+                            error('Could not download %s into %s\n',zipFileName,targetFileName);
+                        end
+
+                        % Unzip the downloaded zip file in the export_fig folder
+                        try
+                            unzip(targetFileName,folderName);
+                        catch
+                            error('Could not unzip %s\n',targetFileName);
+                        end
+                    case 'nofontswap'
+                        options.fontswap = false;
                     otherwise
-                        if strcmpi(varargin{a}(1:2),'-d')
-                            varargin{a}(2) = 'd';  % ensure lowercase 'd'
-                            options.gs_options{end+1} = varargin{a};
-                        else
-                            val = str2double(regexp(varargin{a}, '(?<=-(m|M|r|R|q|Q|p|P))-?\d*.?\d+', 'match'));
-                            if isempty(val) || isnan(val)
-                                % Issue #51: improved processing of input args (accept space between param name & value)
-                                val = str2double(varargin{a+1});
-                                if isscalar(val) && ~isnan(val)
-                                    skipNext = true;
+                        try
+                            if strcmpi(varargin{a}(1:2),'-d')
+                                varargin{a}(2) = 'd';  % ensure lowercase 'd'
+                                options.gs_options{end+1} = varargin{a};
+                            else
+                                val = str2double(regexp(varargin{a}, '(?<=-(m|M|r|R|q|Q|p|P))-?\d*.?\d+', 'match'));
+                                if isempty(val) || isnan(val)
+                                    % Issue #51: improved processing of input args (accept space between param name & value)
+                                    val = str2double(varargin{a+1});
+                                    if isscalar(val) && ~isnan(val)
+                                        skipNext = true;
+                                    end
+                                end
+                                if ~isscalar(val) || isnan(val)
+                                    error('option %s is not recognised or cannot be parsed', varargin{a});
+                                end
+                                switch lower(varargin{a}(2))
+                                    case 'm'
+                                        options.magnify = val;
+                                    case 'r'
+                                        options.resolution = val;
+                                    case 'q'
+                                        options.quality = max(val, 0);
+                                    case 'p'
+                                        options.bb_padding = val;
                                 end
                             end
-                            if ~isscalar(val) || isnan(val)
-                                error('option %s is not recognised or cannot be parsed', varargin{a});
-                            end
-                            switch lower(varargin{a}(2))
-                                case 'm'
-                                    options.magnify = val;
-                                case 'r'
-                                    options.resolution = val;
-                                case 'q'
-                                    options.quality = max(val, 0);
-                                case 'p'
-                                    options.bb_padding = val;
-                            end
+                        catch
+                            error(['Unrecognized export_fig input option: ''' varargin{a} '''']);
                         end
                 end
             else
@@ -900,6 +952,12 @@ function [fig, options] = parse_args(nout, fig, varargin)
                             fig = -1;
                             return
                         end
+                    case '.svg'
+                        msg = ['SVG output is not supported by export_fig. Use one of the following alternatives:\n' ...
+                               '  1. saveas(gcf,''filename.svg'')\n' ...
+                               '  2. plot2svg utility: http://github.com/jschwizer99/plot2svg\n' ...
+                               '  3. export_fig to EPS/PDF, then convert to SVG using generic (non-Matlab) tools\n'];
+                        error(sprintf(msg)); %#ok<SPERR>
                     otherwise
                         options.name = varargin{a};
                 end
@@ -917,7 +975,8 @@ function [fig, options] = parse_args(nout, fig, varargin)
 
     % Set default anti-aliasing now we know the renderer
     if options.aa_factor == 0
-        options.aa_factor = 1 + 2 * (~(using_hg2(fig) && strcmp(get(ancestor(fig, 'figure'), 'GraphicsSmoothing'), 'on')) | (options.renderer == 3));
+        try isAA = strcmp(get(ancestor(fig, 'figure'), 'GraphicsSmoothing'), 'on'); catch, isAA = false; end
+        options.aa_factor = 1 + 2 * (~(using_hg2(fig) && isAA) | (options.renderer == 3));
     end
 
     % Convert user dir '~' to full path

@@ -5,7 +5,7 @@
 
 clearvars;
 
-folder = '/Users/beckel/Documents/Paper/2015-05-SmartGridComm/figures/03_household_classification/images/weather/';
+folder = '/Users/beckel/Documents/Paper/2015-05-SmartGridComm/figures/';
 if exist(folder, 'dir') == 0
     mkdir(folder);
 end
@@ -14,8 +14,8 @@ end
 % ids = setdiff(union(type1, type3), exclude);
 
 % plotting
-width = 8.5;
-height = 5;
+width = 9.5;
+height = 5.5;
 fontsize = 8;
 
 % N = length(ids);
@@ -47,7 +47,7 @@ fontsize = 8;
 load('temperature_and_daylight_variables.mat');
 temperature_coefficients = temperature_and_daylight_variables(:,4);
 
-%% Heating characteristics
+% Heating characteristics
 [ID,Q41,Q42,Q43,Q44,Q45,Q46,Q47] = import_heating('heating_characteristics.csv');
 
 coefficient_central_electric = temperature_coefficients(boolean(Q41));
@@ -144,33 +144,64 @@ label_only = [ label_only, ...
 
 legend = {'Electr. central', 'Electr. plug in', 'Gas', 'Oil', 'Solid fuel', 'Renewable', 'Other'};
 
-fig = figure;                
-boxplot(coefficients_only, label_only, 'labels', legend);
+fig = figure; 
+position_O = 1:7;  
+
+box1 = boxplot(coefficients_only, label_only, 'labels', legend, 'positions', position_O, 'width', 0.18);
+% ylabel('Temperature coefficient');
+% set(gca, 'XTickLabelRotation', 45); 
+% set(gcf, 'color', 'w');
+% grid on;
+% fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
+% filename = 'heating_coefficient_single';
+% export_fig('-cmyk', '-pdf', [folder, filename, '.pdf']);
+% close(fig);
+set(gca,'XTickLabel',{' '})  % Erase xlabels   
+hold on;
+
+position_1 = 1.3:1:7.3
+box2 = boxplot(coefficients, label, 'labels', legend, 'positions',position_1,'width',0.18);
+
+hold off;
 ylim([-0.07,0.02]);
-% title('Only single heat source');
 ylabel('Temperature coefficient');
+
 set(gca, 'XTickLabelRotation', 45); 
+
 set(gcf, 'color', 'w');
+
 grid on;
+
 fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
-filename = 'heating_coefficient_single';
-% print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
+filename = 'heating_coefficient_new';
 export_fig('-cmyk', '-pdf', [folder, filename, '.pdf']);
+% csvwrite([folder, filename, '_only.csv'], coefficients_only);
+% csvwrite([folder, filename, '.csv'], coefficients);
 close(fig);
 
-fig = figure;                
-boxplot(coefficients, label, 'labels', legend);
-ylim([-0.07,0.02]);
-% title('Including multiple heat sources');
-ylabel('Temperature coefficient');
-set(gca, 'XTickLabelRotation', 45); 
-set(gcf, 'color', 'w');
-grid on;
-fig = make_report_ready(fig, 'size', [width, height], 'fontsize', fontsize);
-filename = 'heating_coefficient_overlap';
-% print('-dpdf', '-cmyk', '-r600', [folder, filename, '.pdf']);
-export_fig('-cmyk', '-pdf', [folder, filename, '.pdf']);
-csvwrite([folder, filename, '_only.csv'], coefficients_only);
-csvwrite([folder, filename, '.csv'], coefficients);
-close(fig);
+return;
+
+
+
+
+% text('Position',[1.1,0],'String','January') 
+% text('Position',[2.1,0],'String','February') 
+% text('Position',[3.1,0],'String','March') 
+% text('Position',[4.1,0],'String','April') 
+% text('Position',[5.1,0],'String','May') 
+% text('Position',[6.1,0],'String','June') 
+% text('Position',[7.1,0],'String','July') 
+% text('Position',[8.1,0],'String','August') 
+% text('Position',[9.1,0],'String','September') 
+% text('Position',[10.1,0],'String','October') 
+% text('Position',[11.1,0],'String','November') 
+% text('Position',[12.1,0],'String','December') 
+% 
+% set(gca,'XTickLabel',{''});   % To hide outliers 
+% out_O = box_O(end,~isnan(box_O(end,:)));  
+% delete(out_O)  
+% out_S = box_S(end,~isnan(box_S(end,:)));  
+% delete(out_S)
+
+
 
